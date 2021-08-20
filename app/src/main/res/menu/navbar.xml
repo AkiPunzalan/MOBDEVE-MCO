@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_daily"
+        android:enabled="true"
+        android:icon="@drawable/weekly"
+        android:title="Daily"/>
+    <item
+        android:id="@+id/nav_todo"
+        android:enabled="true"
+        android:icon="@drawable/todo"
+        android:title="To-Do"/>
+
+    <item
+        android:id="@+id/nav_goals"
+        android:enabled="true"
+        android:icon="@drawable/quota"
+        android:title="Goals"/>
+
+    <item
+        android:id="@+id/nav_metrics"
+        android:enabled="true"
+        android:icon="@drawable/metrics"
+        android:title="Metrics"/>
+</menu>
