@@ -9,14 +9,21 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
+    private TextView tvToday;
     private BottomNavigationView nav;
     private FloatingActionButton fab_add;
     private ActionBar toolbar;
@@ -33,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initComponents(){
+        tvToday = findViewById(R.id.tv_today);
+        tvToday.setText(getToday());
+
         nav = findViewById(R.id.bottom_nav);
         nav.setOnNavigationItemSelectedListener(navlistener);
 
@@ -91,4 +101,12 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    private String getToday(){
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        String today = new SimpleDateFormat("EE, d MMM", Locale.ENGLISH).format(date.getTime());
+
+        return today;
+    }
 }
