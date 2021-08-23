@@ -16,10 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -103,10 +101,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private String getToday(){
-        Calendar calendar = Calendar.getInstance();
-        Date date = calendar.getTime();
-        String today = new SimpleDateFormat("EE, d MMM", Locale.ENGLISH).format(date.getTime());
+        LocalDateTime today = LocalDateTime.now();
+        String formattedDate = today.format(DateTimeFormatter.ofPattern("EE, dd MMM"));
 
-        return today;
+        return formattedDate;
     }
 }

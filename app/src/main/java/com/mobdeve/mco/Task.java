@@ -1,37 +1,43 @@
 package com.mobdeve.mco;
 
+import android.graphics.Color;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Task {
     String name, desc;
     Boolean completed;
+    int color;
 
-    //TODO: implement notification class
-    Date notif;
+    //TODO: implement notification
+    LocalDateTime nextnotif;
 
-    public Task(String name, String desc, Date notif, Boolean completed){
+    public Task(String name, String desc, LocalDateTime notif, Boolean completed, String color){
         this.name = name;
         this.desc = desc;
-        this.notif = notif;
+        this.nextnotif = notif;
         this.completed = completed;
+        this.color = Color.parseColor(color);
     }
 
-    public class Daily extends Task{
+    public static class Daily extends Task{
         //Monday to sunday, true = selected
         boolean[] days = {false, false, false, false, false, false, false};
 
-        public Daily(String name, String desc, Date notif, boolean completed, boolean[] days) {
-            super(name, desc, notif, completed);
+        public Daily(String name, String desc, LocalDateTime notif, boolean completed, boolean[] days, String color) {
+            super(name, desc, notif, completed, color);
             this.days = days;
         }
     }
 
-    public class Goal extends Task{
+    public static class Goal extends Task{
         int completion;
-        Date enddate;
+        LocalDateTime startdate, enddate;
 
-        public Goal(String name, String desc, Date notif, boolean completed) {
-            super(name, desc, notif, completed);
+        public Goal(String name, String desc, LocalDateTime notif, boolean completed, int completion, String color) {
+            super(name, desc, notif, completed, color);
+            this.completion = completion;
         }
     }
 }
