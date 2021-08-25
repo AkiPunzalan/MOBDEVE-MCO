@@ -15,4 +15,5 @@
     <color name="grey_highlight">#c4c4c4</color>
 
     <color name="teal_accent">#7ED2DD</color>
+    <color name="teal_secondary">#759FA5</color>
 </resources>

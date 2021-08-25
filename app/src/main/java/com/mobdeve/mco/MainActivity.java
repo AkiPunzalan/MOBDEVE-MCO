@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Implement Add Task Activity
-                //add activity
+                Intent i = new Intent(MainActivity.this, AddActivity.class);
+                startActivity(i);
             }
         });
 
@@ -102,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
     private String getToday(){
         LocalDateTime today = LocalDateTime.now();
-        String formattedDate = today.format(DateTimeFormatter.ofPattern("EE, dd MMM"));
-
-        return formattedDate;
+        return today.format(DateTimeFormatter.ofPattern("EE, dd MMM"));
     }
 }
