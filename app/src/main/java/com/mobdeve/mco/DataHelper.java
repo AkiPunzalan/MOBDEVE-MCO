@@ -1,5 +1,9 @@
 package com.mobdeve.mco;
 
+import android.util.Log;
+
+import androidx.core.content.ContextCompat;
+
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -7,15 +11,15 @@ import java.util.ArrayList;
 public class DataHelper {
 
     //generate arraylist of daily tasks
-    public ArrayList<Task.Daily> initDaily(){
-        ArrayList<Task.Daily> list = new ArrayList<>();
+    public static ArrayList<Task.Daily> initDaily(){
+        ArrayList<Task.Daily> list = new ArrayList<Task.Daily>();
 
         list.add(new Task.Daily(
                 "Task #7",
                 "...",
-                LocalDateTime.of(2021, Month.SEPTEMBER, 2, 19, 30, 0),
+                LocalDateTime.of(2021, Month.AUGUST, 26, 19, 30, 0),
                 true, new boolean[]{true, false, false, true, false, false, true},
-                "#c4c4c4")
+                "#96D563")
         );
 
         list.add(new Task.Daily(
@@ -23,7 +27,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 29, 12, 10, 0),
                 true, new boolean[]{true, true, true, true, true, true, true},
-                "#42cdc1")
+                "#DA3B55")
         );
 
         list.add(new Task.Daily(
@@ -31,7 +35,7 @@ public class DataHelper {
                 "...",
                 null,
                 false, new boolean[]{true, true, true, true, true, true, true},
-                "#eb6161")
+                "#F07A48")
         );
 
         list.add(new Task.Daily(
@@ -39,7 +43,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 8, 12, 0, 0),
                 false, new boolean[]{false, true, true, true, true, true, false},
-                "#96d563")
+                "#96D563")
         );
 
         list.add(new Task.Daily(
@@ -47,7 +51,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 18, 6, 20, 0),
                 true, new boolean[]{true, true, false, false, true, false, true},
-                "#42cdc1")
+                "#DB8C2C")
         );
 
         return list;
@@ -61,7 +65,7 @@ public class DataHelper {
             "...",
             LocalDateTime.of(2021, Month.SEPTEMBER, 18, 6, 20, 0),
             true,
-            "#42cdc1"
+            "#DB8C2C"
         ));
 
         list.add(new Task(
@@ -69,7 +73,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 10, 12, 20, 0),
                 true,
-                "#96d563"
+                "#4A29E0"
         ));
 
         list.add(new Task(
@@ -77,7 +81,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 11, 13, 0, 0),
                 true,
-                "#42cdc1"
+                "#96D563"
         ));
 
         return list;
@@ -91,7 +95,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 11, 13, 0, 0),
                 true, 70,
-                "#42cdc1"
+                "#96D563"
         ));
 
         list.add(new Task.Goal(
@@ -99,7 +103,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 2, 19, 30, 0),
                 true, 50,
-                "#c4c4c4")
+               "#42CDC1")
         );
 
         list.add(new Task.Goal(
@@ -107,7 +111,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 29, 12, 10, 0),
                 true, 80,
-                "#42cdc1")
+                "#DA3B55")
         );
 
         list.add(new Task.Goal(
@@ -115,7 +119,7 @@ public class DataHelper {
                 "...",
                 null,
                 false, 30,
-                "#eb6161")
+                "#42CDC1")
         );
 
         list.add(new Task.Goal(
@@ -123,7 +127,7 @@ public class DataHelper {
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 8, 12, 0, 0),
                 false, 20,
-                "#96d563")
+               "#4A29E0")
         );
 
         return list;

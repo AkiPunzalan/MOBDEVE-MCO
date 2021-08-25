@@ -2,13 +2,22 @@ package com.mobdeve.mco.Fragments;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.mobdeve.mco.Adapters.DailyAdapter;
+import com.mobdeve.mco.DataHelper;
 import com.mobdeve.mco.R;
+import com.mobdeve.mco.Task;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +26,11 @@ import com.mobdeve.mco.R;
  *
  */
 public class DailyFragment extends Fragment {
+
+    private DataHelper dataHelper = new DataHelper();
+
+    private RecyclerView rvDaily;
+    private ArrayList<Task.Daily> daily_list;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,14 +78,20 @@ public class DailyFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_daily, container, false);
 
-        Button tester = v.findViewById(R.id.tester);
-        tester.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "TESTING", Toast.LENGTH_SHORT).show();
-            }
-        });
+        daily_list = dataHelper.initDaily();
+        initRecyclerview(v);
+
+        Log.v("color mismatch", daily_list.get(0).getColor() + " post generation");
 
         return v;
+    }
+
+    private void initRecyclerview(View v){
+        rvDaily = v.findViewById(R.id.rv_daily);
+
+        rvDaily.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
+        daily_list = dataHelper.initDaily();
+        this.rvDaily.setAdapter(new DailyAdapter(this.daily_list));
     }
 }

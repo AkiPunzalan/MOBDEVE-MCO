@@ -16,4 +16,11 @@
 
     <color name="teal_accent">#7ED2DD</color>
     <color name="teal_secondary">#759FA5</color>
+
+    <color name="task_red">#DA3B55</color>
+    <color name="task_orange">#F07A48</color>
+    <color name="task_gold">#DB8C2C</color>
+    <color name="task_green">#96D563</color>
+    <color name="task_teal">#42CDC1</color>
+    <color name="task_purple">#4A29E0</color>
 </resources>

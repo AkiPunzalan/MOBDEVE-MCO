@@ -2,13 +2,15 @@ package com.mobdeve.mco;
 
 import android.graphics.Color;
 
+import androidx.annotation.ColorInt;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Task {
     String name, desc;
     Boolean completed;
-    int color;
+    String color;
 
     //TODO: implement notification
     LocalDateTime nextnotif;
@@ -18,7 +20,7 @@ public class Task {
         this.desc = desc;
         this.nextnotif = notif;
         this.completed = completed;
-        this.color = Color.parseColor(color);
+        this.color = color;
     }
 
     public String getName() {
@@ -33,11 +35,11 @@ public class Task {
         return nextnotif;
     }
 
-    public Boolean getCompleted() {
+    public boolean getCompleted() {
         return completed;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 
@@ -49,15 +51,23 @@ public class Task {
             super(name, desc, notif, completed, color);
             this.days = days;
         }
+
+        public boolean[] getDays(){
+            return days;
+        }
     }
 
     public static class Goal extends Task{
         int completion;
-        LocalDateTime startdate, enddate;
+        LocalDateTime enddate;
 
         public Goal(String name, String desc, LocalDateTime notif, boolean completed, int completion, String color) {
             super(name, desc, notif, completed, color);
             this.completion = completion;
+        }
+
+        public int getCompletion(){
+            return completion;
         }
     }
 }
