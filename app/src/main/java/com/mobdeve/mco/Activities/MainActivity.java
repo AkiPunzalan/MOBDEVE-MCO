@@ -1,4 +1,4 @@
-package com.mobdeve.mco;
+package com.mobdeve.mco.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.jetbrains.annotations.NotNull;
+import com.mobdeve.mco.Fragments.*;
+import com.mobdeve.mco.R;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

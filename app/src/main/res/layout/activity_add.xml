@@ -8,7 +8,7 @@
     android:paddingStart="30dp"
     android:paddingTop="10dp"
     android:paddingEnd="30dp"
-    tools:context=".AddActivity">
+    tools:context=".Activities.AddActivity">
 
     <EditText
         android:id="@+id/et_name"

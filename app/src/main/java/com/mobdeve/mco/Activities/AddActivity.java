@@ -1,8 +1,10 @@
-package com.mobdeve.mco;
+package com.mobdeve.mco.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.mobdeve.mco.R;
 
 public class AddActivity extends AppCompatActivity {
 
