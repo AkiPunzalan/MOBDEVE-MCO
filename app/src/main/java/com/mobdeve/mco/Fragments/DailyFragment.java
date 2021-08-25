@@ -1,19 +1,20 @@
-package com.mobdeve.mco;
+package com.mobdeve.mco.Fragments;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.mobdeve.mco.R;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DailyFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
  */
 public class DailyFragment extends Fragment {
 
@@ -26,27 +27,35 @@ public class DailyFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public DailyFragment() {
-        // Required empty public constructor
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment DailyFragment.
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment BlankFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DailyFragment newInstance() {
+    public static DailyFragment newInstance(String param1, String param2) {
         DailyFragment fragment = new DailyFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public DailyFragment() {
+        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
@@ -59,7 +68,7 @@ public class DailyFragment extends Fragment {
         tester.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "TEST", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "TESTING", Toast.LENGTH_SHORT).show();
             }
         });
 
