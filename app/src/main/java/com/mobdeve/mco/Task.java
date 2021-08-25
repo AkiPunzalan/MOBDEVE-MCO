@@ -21,6 +21,26 @@ public class Task {
         this.color = Color.parseColor(color);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public LocalDateTime getNotif() {
+        return nextnotif;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
     public static class Daily extends Task{
         //Monday to sunday, true = selected
         boolean[] days = {false, false, false, false, false, false, false};
