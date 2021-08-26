@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/edit_details"
+        android:icon="@drawable/pencil"
+        android:orderInCategory="100"
+        android:title="Edit Details"
+        app:showAsAction="always"
+        android:iconTint="@color/grey_highlight" />
+</menu>

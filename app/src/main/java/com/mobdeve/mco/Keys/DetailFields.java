@@ -6,5 +6,7 @@ public enum DetailFields {
     DONE,
     DESC,
     NOTIF,
-    COLOR
+    COLOR,
+
+    DAYS
 }

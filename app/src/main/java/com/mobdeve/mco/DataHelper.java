@@ -16,7 +16,7 @@ public class DataHelper {
 
         list.add(new Task.Daily(
                 "Task #7",
-                "...",
+                null,
                 LocalDateTime.of(2021, Month.AUGUST, 26, 19, 30, 0),
                 true, new boolean[]{true, false, false, true, false, false, true},
                 "#96D563")

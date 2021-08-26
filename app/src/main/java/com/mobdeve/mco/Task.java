@@ -37,11 +37,15 @@ public class Task {
     }
 
     public String getNotifString(){
-        return nextnotif.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        if(nextnotif != null)
+            return nextnotif.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        return "No Notifications";
     }
 
     public String getNotifStringWithMonth(){
-        return nextnotif.format(DateTimeFormatter.ofPattern("dd MMM, hh:mm a"));
+        if(nextnotif != null)
+            return nextnotif.format(DateTimeFormatter.ofPattern("dd MMM, hh:mm a"));
+        return "No Notifications";
     }
 
     public boolean getCompleted() {

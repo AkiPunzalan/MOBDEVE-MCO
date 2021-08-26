@@ -9,6 +9,8 @@
     <string name="notdone_text">Not Done</string>
 
     <dimen name="item_height">70dp</dimen>
+
+    <string name="grey_highlight_string">#c4c4c4</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
