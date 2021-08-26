@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,9 +27,12 @@ public class DailyViewHolder extends RecyclerView.ViewHolder{
     ImageView ivColor, ivCheck, ivAlarm;
     TextView tvName, tvTime;
     TextView tvMon, tvTue, tvWed, tvThu, tvFri, tvSat, tvSun;
+    ConstraintLayout clItem;
 
     public DailyViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
+
+        clItem = itemView.findViewById(R.id.cl_daily_item);
 
         ivColor = itemView.findViewById(R.id.iv_daily_color);
         ivCheck = itemView.findViewById(R.id.iv_daily_check);
@@ -44,6 +48,10 @@ public class DailyViewHolder extends RecyclerView.ViewHolder{
         tvFri = itemView.findViewById(R.id.tv_daily_fri);
         tvSat = itemView.findViewById(R.id.tv_daily_sat);
         tvSun = itemView.findViewById(R.id.tv_daily_sun);
+    }
+
+    public ConstraintLayout getItemLayout(){
+        return clItem;
     }
 
     public void setColor(String color){

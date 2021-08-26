@@ -5,6 +5,7 @@ import android.graphics.Color;
 import androidx.annotation.ColorInt;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Task {
@@ -33,6 +34,14 @@ public class Task {
 
     public LocalDateTime getNotif() {
         return nextnotif;
+    }
+
+    public String getNotifString(){
+        return nextnotif.format(DateTimeFormatter.ofPattern("hh:mm a"));
+    }
+
+    public String getNotifStringWithMonth(){
+        return nextnotif.format(DateTimeFormatter.ofPattern("dd MMM, hh:mm a"));
     }
 
     public boolean getCompleted() {

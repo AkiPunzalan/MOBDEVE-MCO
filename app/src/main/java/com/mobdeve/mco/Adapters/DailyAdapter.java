@@ -1,5 +1,6 @@
 package com.mobdeve.mco.Adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobdeve.mco.Activities.TaskDetailsActivity;
+import com.mobdeve.mco.Keys.DetailFields;
 import com.mobdeve.mco.R;
 import com.mobdeve.mco.Task;
 import com.mobdeve.mco.ViewHolders.DailyViewHolder;
@@ -31,6 +34,24 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyViewHolder>{
         View view = inflater.inflate(R.layout.item_daily, parent, false);
 
         DailyViewHolder vh = new DailyViewHolder(view);
+
+        vh.getItemLayout().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), TaskDetailsActivity.class);
+
+                Task.Daily selectedTask = data.get(vh.getBindingAdapterPosition());
+
+                i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
+                i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
+                i.putExtra(DetailFields.DONE.name(), selectedTask.getCompleted());
+                i.putExtra(DetailFields.NOTIF.name(), selectedTask.getNotifString());
+                i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
+                i.putExtra(DetailFields.TYPE.name(), "DAILY");
+
+                v.getContext().startActivity(i);
+            }
+        });
 
         return vh;
     }
