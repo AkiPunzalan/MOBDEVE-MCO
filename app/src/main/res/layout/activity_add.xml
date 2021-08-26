@@ -28,7 +28,7 @@
         android:id="@+id/et_desc"
         android:layout_width="0dp"
         android:layout_height="41dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="100dp"
         android:backgroundTint="@color/grey_highlight"
         android:ems="10"
         android:inputType="textPersonName"
@@ -75,18 +75,19 @@
         android:id="@+id/rg_tasktype"
         android:layout_width="270dp"
         android:layout_height="25dp"
-        android:layout_marginTop="28dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tv_tasktype"
-        app:layout_constraintTop_toBottomOf="@+id/et_desc">
+        app:layout_constraintTop_toTopOf="@+id/tv_tasktype">
 
 
         <RadioButton
             android:id="@+id/rd_todo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
             android:checked="true"
@@ -95,7 +96,6 @@
             android:paddingTop="3dp"
             android:paddingRight="5dp"
             android:paddingBottom="3dp"
-            android:layout_marginRight="5dp"
             android:text="One-time"
             android:textColor="@drawable/radio_selector_text" />
 
@@ -103,6 +103,7 @@
             android:id="@+id/rd_daily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
@@ -110,7 +111,6 @@
             android:paddingTop="3dp"
             android:paddingRight="5dp"
             android:paddingBottom="3dp"
-            android:layout_marginRight="5dp"
 
             android:text="Daily"
             android:textColor="@drawable/radio_selector_text" />
@@ -136,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:text="Task Type*"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -161,11 +161,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="16dp"
         android:text="Notify "
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_tasktype"
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskdesc"
         app:thumbTint="@color/selector"
         app:trackTint="@color/switch_track_selector" />
 
@@ -182,8 +182,8 @@
     <Button
         android:id="@+id/btn_add_confirm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="24dp"
         android:background="@color/teal_accent"
         android:text="confirm"
         app:layout_constraintBottom_toBottomOf="parent"
