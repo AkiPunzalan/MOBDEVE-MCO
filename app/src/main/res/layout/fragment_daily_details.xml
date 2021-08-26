@@ -13,6 +13,7 @@
         android:id="@+id/tv_details_daily_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_black"
         android:text="Days for tracking habit :"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -27,13 +28,26 @@
         android:text="M"
         android:textColor="@color/grey"
         android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_details_days_wed"
-        app:layout_constraintEnd_toStartOf="@+id/tv_details_days_wed"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_details_days_tue"
+        app:layout_constraintEnd_toStartOf="@+id/tv_details_days_tue"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_details_days_tue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_black"
+        android:text="T"
+        android:textColor="@color/grey"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_details_days_wed"
+        app:layout_constraintEnd_toStartOf="@+id/tv_details_days_wed"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_details_days_mon" />
+
+    <TextView
+        android:id="@+id/tv_details_days_wed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_black"
@@ -43,20 +57,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_details_days_thu"
         app:layout_constraintEnd_toStartOf="@+id/tv_details_days_thu"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_details_days_wed" />
-
-    <TextView
-        android:id="@+id/tv_details_days_wed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_black"
-        android:text="T"
-        android:textColor="@color/grey"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_details_days_tue"
-        app:layout_constraintEnd_toStartOf="@+id/tv_details_days_tue"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_details_days_mon" />
+        app:layout_constraintStart_toEndOf="@+id/tv_details_days_tue" />
 
     <TextView
         android:id="@+id/tv_details_days_thu"
@@ -69,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_details_days_fri"
         app:layout_constraintEnd_toStartOf="@+id/tv_details_days_fri"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_details_days_tue" />
+        app:layout_constraintStart_toEndOf="@+id/tv_details_days_wed" />
 
     <TextView
         android:id="@+id/tv_details_days_fri"
