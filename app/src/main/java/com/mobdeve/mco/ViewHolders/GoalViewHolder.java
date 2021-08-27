@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ImageViewCompat;
-import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.mco.R;
@@ -32,14 +31,14 @@ public class GoalViewHolder extends RecyclerView.ViewHolder {
     public GoalViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
 
-        clItem = itemView.findViewById(R.id.cl_goal_tem);
+        clItem = itemView.findViewById(R.id.cl_goal_item);
 
-        ivColor = itemView.findViewById(R.id.iv_goal_color);
-        ivCheck = itemView.findViewById(R.id.iv_goal_check);
+        ivColor = itemView.findViewById(R.id.iv_todo_color);
+        ivCheck = itemView.findViewById(R.id.iv_todo_check);
 
-        tvComp = itemView.findViewById(R.id.tv_goal_comp);
+        tvComp = itemView.findViewById(R.id.tv_todo_time);
         tvTime = itemView.findViewById(R.id.tv_goal_time);
-        tvName = itemView.findViewById(R.id.tv_goal_name);
+        tvName = itemView.findViewById(R.id.tv_todo_name);
 
         progressBar = itemView.findViewById(R.id.progressBar2);
 

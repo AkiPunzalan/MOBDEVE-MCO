@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_goal_item"
+    android:id="@+id/cl_todo_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_primary">
+    android:background="@color/black_secondary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -26,29 +26,12 @@
             android:id="@+id/iv_todo_check"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="16dp"
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/progressBar2"
+            app:layout_constraintStart_toEndOf="@+id/iv_todo_color"
             app:srcCompat="@drawable/check" />
-
-        <ProgressBar
-
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="176dp"
-
-            android:layout_height="27dp"
-            android:indeterminateOnly="false"
-            android:progress="70"
-            android:progressDrawable="@drawable/bar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.925"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.666" />
 
         <ImageView
             android:id="@+id/iv_todo_color"
@@ -64,36 +47,37 @@
             android:id="@+id/tv_todo_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
             android:maxWidth="100dp"
-            android:text="Habit name"
+            android:text="Task name"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_todo_color"
+            app:layout_constraintStart_toEndOf="@+id/iv_todo_check"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_goal_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="ends on 25, Sept"
-            android:textColor="#A1A1A1"
-            app:layout_constraintStart_toEndOf="@+id/iv_todo_color"
-            app:layout_constraintTop_toBottomOf="@+id/tv_todo_name" />
-
-        <TextView
             android:id="@+id/tv_todo_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="3dp"
-            android:text="76% complete"
+            android:layout_width="81dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="20dp"
+            android:text="1:30 PM"
             android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/progressBar2"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_todo_clock" />
+
+        <ImageView
+            android:id="@+id/iv_todo_clock"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/alarm" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
