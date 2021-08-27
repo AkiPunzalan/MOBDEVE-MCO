@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/et_desc"
+        android:id="@+id/et_details_dialog_desc"
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:layout_marginTop="100dp"
@@ -87,7 +87,7 @@
         android:layout_marginStart="4dp"
         android:text="Description"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/et_desc"
+        app:layout_constraintBottom_toTopOf="@+id/et_details_dialog_desc"
         app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -159,7 +159,7 @@
         android:text="Task Type*"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_desc" />
+        app:layout_constraintTop_toBottomOf="@+id/et_details_dialog_desc" />
 
     <TextView
         android:id="@+id/tv_taskdesc"
@@ -195,7 +195,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="et_name,rg_tasktype,et_desc,tv_name,tv_tasktype,tv_desc,button,tv_taskdesc,sw_notifSwitch"
+        app:constraint_referenced_ids="et_name,rg_tasktype,et_details_dialog_desc,tv_name,tv_tasktype,tv_desc,button,tv_taskdesc,sw_notifSwitch"
         tools:layout_editor_absoluteX="68dp"
         tools:layout_editor_absoluteY="378dp" />
 

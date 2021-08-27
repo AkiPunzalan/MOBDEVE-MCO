@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -16,6 +17,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +71,9 @@ public class TaskDetailsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.edit_details, menu);
+
+
+
         return true;
     }
 
@@ -75,9 +82,27 @@ public class TaskDetailsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.edit_details){
-            //TODO: EDIT TASK DIALOGUE
-        }
+            //BTN CLICK EVENT
+            final Dialog dialog = new Dialog(TaskDetailsActivity.this);
 
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.dialog_editdetails);
+
+            //INIT DIALOG COMPONENTS
+            final EditText etEditName = dialog.findViewById(R.id.et_details_dialog_name);
+            final EditText etEditDesc = dialog.findViewById(R.id.et_details_dialog_desc);
+
+            Button btnConfirm = dialog.findViewById(R.id.btn_details_dialog_confirm);
+            btnConfirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -100,6 +125,9 @@ public class TaskDetailsActivity extends AppCompatActivity {
                 setDone(done, color);
             }
         });
+
+        //DIALOG INIT
+
     }
 
     private void setDesc(String desc){
