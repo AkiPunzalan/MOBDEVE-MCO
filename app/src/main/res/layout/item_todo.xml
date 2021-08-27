@@ -50,7 +50,7 @@
         android:layout_marginEnd="24dp"
         android:text="1:30 PM"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_todo_alarm"
         app:layout_constraintEnd_toStartOf="@+id/iv_todo_alarm"
         app:layout_constraintTop_toTopOf="@+id/iv_todo_alarm" />

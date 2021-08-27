@@ -1,5 +1,6 @@
 package com.mobdeve.mco.Fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import com.mobdeve.mco.Adapters.DailyAdapter;
 import com.mobdeve.mco.DataHelper;
+import com.mobdeve.mco.DatabaseHelper;
+import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
 import com.mobdeve.mco.Task;
 
@@ -27,8 +30,10 @@ import java.util.ArrayList;
  */
 public class DailyFragment extends Fragment {
 
+    private DatabaseHelper db;
+
     private RecyclerView rvDaily;
-    private ArrayList<Task.Daily> daily_list;
+    private ArrayList<Task.Daily> daily_list = new ArrayList<Task.Daily>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,7 +81,6 @@ public class DailyFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_daily, container, false);
 
-        daily_list = DataHelper.initDaily();
         initRecyclerview(v);
 
         return v;
@@ -84,10 +88,28 @@ public class DailyFragment extends Fragment {
 
     private void initRecyclerview(View v){
         rvDaily = v.findViewById(R.id.rv_daily);
+        db = new DatabaseHelper(getActivity());
+        initDaily();
 
         rvDaily.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
-        daily_list = DataHelper.initDaily();
         this.rvDaily.setAdapter(new DailyAdapter(this.daily_list));
+    }
+
+    private void initDaily(){
+        Cursor cursor = db.readTable(Types.Daily.name());
+        if(cursor.getCount() == 0){
+            Log.v("database initialize", "database empty");
+        } else {
+            while(cursor.moveToNext()){
+                daily_list.add(new Task.Daily(
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(5),
+                    cursor.getInt(4),
+                    cursor.getString(6),
+                    cursor.getString(3))
+                );
+            }
+        }
     }
 }

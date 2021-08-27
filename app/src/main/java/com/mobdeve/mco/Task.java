@@ -19,15 +19,17 @@ public class Task {
         this.color = color;
     }
 
-    public Task(String name, String desc, LocalDateTime notif, int completed, String color){
+    public Task(String name, String desc, String notif, int completed, String color){
         this.name = name;
         this.desc = desc;
-        this.nextnotif = notif;
+        this.nextnotif = getNotif(notif);
         this.color = color;
         this.completed = getCompleted(completed);
     }
 
     public Task(String name, String color, boolean completion, LocalDateTime time) {}
+
+    public Task() { }
 
     public String getName() {
         return name;
@@ -118,6 +120,20 @@ public class Task {
 
         public Goal(String name, String desc, LocalDateTime notif, boolean completed, int completion, String color) {
             super(name, desc, notif, completed, color);
+            this.completion = completion;
+        }
+
+        public Goal(String name, String desc, String notif, int completed, int completion, String color) {
+            super();
+            this.name = name;
+            this.desc = desc;
+
+            if(notif != null)
+                this.nextnotif = getNotif(notif);
+            else this.nextnotif = null;
+
+            this.color = color;
+            this.completed = getCompleted(completed);
             this.completion = completion;
         }
 

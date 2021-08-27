@@ -36,19 +36,18 @@ public class ToDoViewHolder extends RecyclerView.ViewHolder {
 
         tvName = itemView.findViewById(R.id.tv_todo_name);
         tvTime = itemView.findViewById(R.id.tv_todo_time);
-
     }
 
-    public ConstraintLayout getItemLayout() {
+    public ConstraintLayout getItemLayout(){
         return clItem;
-    }
-
-    public void setName(String name){
-        tvName.setText(name);
     }
 
     public void setColor(String color){
         ImageViewCompat.setImageTintList(ivColor, ColorStateList.valueOf(Color.parseColor(color)));
+    }
+
+    public void setName(String name){
+        tvName.setText(name);
     }
 
     public void setTime(LocalDateTime time){
@@ -60,10 +59,10 @@ public class ToDoViewHolder extends RecyclerView.ViewHolder {
             tvTime.setVisibility(View.GONE);
         }
         else if(!(today.getYear() == time.getYear() && today.getMonth() == time.getMonth() && today.getDayOfMonth() == time.getDayOfMonth())){
-            formatedtime = "starts at " + time.format(DateTimeFormatter.ofPattern("EE, hh:mm a"));
+            formatedtime = time.format(DateTimeFormatter.ofPattern("dd MMM hh:mm a"));
             tvTime.setText(formatedtime);
         } else {
-            formatedtime = "starts at " + time.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            formatedtime = time.format(DateTimeFormatter.ofPattern("dd MMM hh:mm a"));
             tvTime.setText(formatedtime);
         }
     }

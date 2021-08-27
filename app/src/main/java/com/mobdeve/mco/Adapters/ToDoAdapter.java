@@ -41,15 +41,16 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoViewHolder> {
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), TaskDetailsActivity.class);
 
-                Task selectedTask = data.get(vh.getAdapterPosition());
+                Task selectedTask = data.get(vh.getBindingAdapterPosition());
 
                 i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
                 i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
                 i.putExtra(DetailFields.DONE.name(), selectedTask.getCompleted());
                 i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
-                i.putExtra(DetailFields.TYPE.name(), "ToDo");
+                i.putExtra(DetailFields.NOTIF.name(), selectedTask.getNotifStringWithMonth());
+                i.putExtra(DetailFields.TYPE.name(), "TODO");
 
-
+                v.getContext().startActivity(i);
             }
         });
 

@@ -1,17 +1,21 @@
 package com.mobdeve.mco.Fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobdeve.mco.Adapters.ToDoAdapter;
 import com.mobdeve.mco.DataHelper;
+import com.mobdeve.mco.DatabaseHelper;
+import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
 import com.mobdeve.mco.Task;
 
@@ -24,10 +28,10 @@ import java.util.ArrayList;
  */
 public class TodoFragment extends Fragment {
 
-    private DataHelper dataHelper = new DataHelper();
+    private DatabaseHelper db;
 
     private RecyclerView rvTodo;
-    private ArrayList<Task> todo_list;
+    private ArrayList<Task> todo_list = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,11 +76,8 @@ public class TodoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View v = inflater.inflate(R.layout.fragment_todo, container, false);
 
-        todo_list = dataHelper.initTodo();
         initRecyclerview(v);
 
         return v;
@@ -84,11 +85,28 @@ public class TodoFragment extends Fragment {
 
     public void initRecyclerview(View v) {
         rvTodo = v.findViewById(R.id.rv_todo);
+        db = new DatabaseHelper(getActivity());
+        initTodo();
 
         rvTodo.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
-        todo_list = dataHelper.initTodo();
         this.rvTodo.setAdapter(new ToDoAdapter(this.todo_list));
+    }
+
+    private void initTodo(){
+        Cursor cursor = db.readTable(Types.Todo.name());
+        if(cursor.getCount() == 0){
+            Log.v("database initialize", "database empty");
+        } else {
+            while(cursor.moveToNext()){
+                todo_list.add(new Task(
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(5),
+                        cursor.getInt(4),
+                        cursor.getString(3))
+                );
+            }
+        }
     }
 
 }

@@ -72,7 +72,7 @@ public class DataHelper {
                 "Task #7",
                 "...",
                 LocalDateTime.of(2021, Month.SEPTEMBER, 10, 12, 20, 0),
-                true,
+                false,
                 "#4A29E0"
         ));
 

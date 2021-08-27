@@ -75,9 +75,8 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseHelper db = new DatabaseHelper(AddActivity.this);
-                db.addDaily("Habit 2", "...", "#c4c4c4", 1,
-                        LocalDateTime.of(2021, 8, 26, 19, 30, 0),
-                        new boolean[]{true, true, false, false, true, true, false});
+//                db.addTodo("Habit 2", "...", "#96D563", 1,
+//                        LocalDateTime.of(2021, 8, 26, 19, 30, 0));
             }
         });
     }

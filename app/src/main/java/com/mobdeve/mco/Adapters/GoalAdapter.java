@@ -42,7 +42,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalViewHolder> {
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), TaskDetailsActivity.class);
 
-                Task.Goal selectedTask = data.get(vh.getAdapterPosition());
+                Task.Goal selectedTask = data.get(vh.getBindingAdapterPosition());
 
                 i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
                 i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());

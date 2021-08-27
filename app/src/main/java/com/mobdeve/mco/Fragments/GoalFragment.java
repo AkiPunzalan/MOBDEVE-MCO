@@ -1,17 +1,21 @@
 package com.mobdeve.mco.Fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobdeve.mco.Adapters.GoalAdapter;
 import com.mobdeve.mco.DataHelper;
+import com.mobdeve.mco.DatabaseHelper;
+import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
 import com.mobdeve.mco.Task;
 
@@ -24,10 +28,10 @@ import java.util.ArrayList;
  */
 public class GoalFragment extends Fragment {
 
-    private DataHelper dataHelper = new DataHelper();
+    private DatabaseHelper db;
 
     private RecyclerView rvGoal;
-    private ArrayList<Task.Goal> goals_list;
+    private ArrayList<Task.Goal> goals_list = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,7 +79,6 @@ public class GoalFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_goal, container, false);
 
-        goals_list = dataHelper.initGoal();
         initRecyclerview(v);
 
         return v;
@@ -83,11 +86,29 @@ public class GoalFragment extends Fragment {
 
     private void initRecyclerview(View v){
         rvGoal = v.findViewById(R.id.rv_goal);
+        db = new DatabaseHelper(getActivity());
+        initGoals();
 
         rvGoal.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
-        goals_list = dataHelper.initGoal();
         this.rvGoal.setAdapter(new GoalAdapter(this.goals_list));
+    }
+
+    private void initGoals(){
+        Cursor cursor = db.readTable(Types.Goal.name());
+        if(cursor.getCount() == 0){
+            Log.v("database initialize", "database empty");
+        } else {
+            while(cursor.moveToNext()){
+                goals_list.add(new Task.Goal(
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(5),
+                    cursor.getInt(4),
+                    cursor.getInt(6),
+                    cursor.getString(3))
+                );
+            }
+        }
     }
 
 }
