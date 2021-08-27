@@ -8,5 +8,6 @@ public enum DetailFields {
     NOTIF,
     COLOR,
 
-    DAYS
+    DAYS,
+    PROGRESS
 }

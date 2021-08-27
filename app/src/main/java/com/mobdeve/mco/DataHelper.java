@@ -117,7 +117,7 @@ public class DataHelper {
         list.add(new Task.Goal(
                 "Task #7",
                 "...",
-                null,
+                LocalDateTime.of(2021, Month.SEPTEMBER, 8, 12, 0, 0),
                 false, 30,
                 "#42CDC1")
         );

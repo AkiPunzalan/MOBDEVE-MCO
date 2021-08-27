@@ -139,6 +139,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
 
         args.putBooleanArray(DetailFields.DAYS.name(), i.getBooleanArrayExtra(DetailFields.DAYS.name()));
         args.putString(DetailFields.COLOR.name(), color);
+        args.putInt(DetailFields.PROGRESS.name(), i.getIntExtra(DetailFields.PROGRESS.name(), 0));
 
         fragment.setArguments(args);
         transaction.replace(R.id.frc_details, fragment).commit();

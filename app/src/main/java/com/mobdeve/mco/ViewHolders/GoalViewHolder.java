@@ -1,6 +1,5 @@
 package com.mobdeve.mco.ViewHolders;
 
-import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.View;
@@ -25,7 +24,7 @@ public class GoalViewHolder extends RecyclerView.ViewHolder {
     ConstraintLayout clItem;
     ImageView ivColor, ivCheck;
     TextView tvTime, tvName, tvComp;
-    ProgressBar progressBar;
+    ProgressBar pbProgress;
 
 
     public GoalViewHolder(@NonNull @NotNull View itemView) {
@@ -33,14 +32,14 @@ public class GoalViewHolder extends RecyclerView.ViewHolder {
 
         clItem = itemView.findViewById(R.id.cl_goal_item);
 
-        ivColor = itemView.findViewById(R.id.iv_todo_color);
-        ivCheck = itemView.findViewById(R.id.iv_todo_check);
+        ivColor = itemView.findViewById(R.id.iv_goal_color);
+        ivCheck = itemView.findViewById(R.id.iv_goal_check);
 
-        tvComp = itemView.findViewById(R.id.tv_todo_time);
+        tvComp = itemView.findViewById(R.id.tv_goal_progress);
         tvTime = itemView.findViewById(R.id.tv_goal_time);
-        tvName = itemView.findViewById(R.id.tv_todo_name);
+        tvName = itemView.findViewById(R.id.tv_goal_name);
 
-        progressBar = itemView.findViewById(R.id.progressBar2);
+        pbProgress = itemView.findViewById(R.id.pb_goal_progress);
 
     }
 
@@ -50,7 +49,6 @@ public class GoalViewHolder extends RecyclerView.ViewHolder {
 
     public void setColor(String color) {
         ImageViewCompat.setImageTintList(ivColor, ColorStateList.valueOf(Color.parseColor(color)));
-        progressBar.getProgressDrawable().setColorFilter(Color.parseColor(color));
     }
 
     public void setName(String name) {
@@ -59,23 +57,23 @@ public class GoalViewHolder extends RecyclerView.ViewHolder {
 
     public void setTime(LocalDateTime time){
         String formatedtime;
-        LocalDateTime today = LocalDateTime.now();
 
-        formatedtime = "starts at " + time.format(DateTimeFormatter.ofPattern("dd MM"));
+        formatedtime = "ends on " + time.format(DateTimeFormatter.ofPattern("dd MMM"));
         tvTime.setText(formatedtime);
     }
 
-    @SuppressLint("ResourceAsColor")
+
     public void setCheck(boolean complete, String color) {
         if(complete)
             ImageViewCompat.setImageTintList(ivCheck, ColorStateList.valueOf(Color.parseColor(color)));
     }
 
-    public void setProgressBar(int completion) {
-        TextView.setText(Integer.parseInt(String.valueOf(completion)+"%"));
+    public void setProgress(int completion, String color) {
+        String s = completion+"% complete";
+        tvComp.setText(s);
 
-        progressBar.setProgress(Integer.parseInt(String.valueOf(completion)));
-
+        pbProgress.setProgress(completion);
+        pbProgress.setProgressTintList(ColorStateList.valueOf(Color.parseColor(color)));
     }
 
 

@@ -24,6 +24,16 @@ public class Task {
         this.color = color;
     }
 
+    public Task(String name, String desc, LocalDateTime notif, int completed, String color){
+        this.name = name;
+        this.desc = desc;
+        this.nextnotif = notif;
+        this.color = color;
+        this.completed = getCompleted(completed);
+    }
+
+    public Task() {}
+
     public String getName() {
         return name;
     }
@@ -34,6 +44,11 @@ public class Task {
 
     public LocalDateTime getNotif() {
         return nextnotif;
+    }
+
+    public LocalDateTime getNotif(String notif){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.parse(notif, format);
     }
 
     public String getNotifString(){
@@ -52,6 +67,12 @@ public class Task {
         return completed;
     }
 
+    public boolean getCompleted(int completed){
+        if(completed == 1)
+            return true;
+        else return false;
+    }
+
     public String getColor() {
         return color;
     }
@@ -65,7 +86,33 @@ public class Task {
             this.days = days;
         }
 
+        public Daily(String name, String desc, String notif, int completed, String days, String color) {
+            super();
+            this.name = name;
+            this.desc = desc;
+
+            if(notif != null)
+                this.nextnotif = getNotif(notif);
+            else this.nextnotif = null;
+
+            this.color = color;
+            this.completed = getCompleted(completed);
+            this.days = getDays(days);
+        }
+
         public boolean[] getDays(){
+            return days;
+        }
+
+        public boolean[] getDays(String s){
+            boolean[] days = new boolean[7];
+
+            for(int i=0; i<7; i++){
+                if(s.charAt(i) == '1')
+                    days[i] = true;
+                else days[i] = false;
+            }
+
             return days;
         }
     }
