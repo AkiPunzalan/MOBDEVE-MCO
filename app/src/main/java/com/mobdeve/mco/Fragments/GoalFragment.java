@@ -3,12 +3,19 @@ package com.mobdeve.mco.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mobdeve.mco.Adapters.GoalAdapter;
+import com.mobdeve.mco.DataHelper;
 import com.mobdeve.mco.R;
+import com.mobdeve.mco.Task;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,11 @@ import com.mobdeve.mco.R;
  * create an instance of this fragment.
  */
 public class GoalFragment extends Fragment {
+
+    private DataHelper dataHelper = new DataHelper();
+
+    private RecyclerView rvGoal;
+    private ArrayList<Task.Goal> goals_list;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +73,21 @@ public class GoalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_goal, container, false);
+        View v = inflater.inflate(R.layout.fragment_goal, container, false);
+
+        goals_list = dataHelper.initGoal();
+        initRecyclerview(v);
+
+        return v;
     }
+
+    private void initRecyclerview(View v){
+        rvGoal = v.findViewById(R.id.rv_goal);
+
+        rvGoal.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
+        goals_list = dataHelper.initGoal();
+        this.rvGoal.setAdapter(new GoalAdapter(this.goals_list));
+    }
+
 }

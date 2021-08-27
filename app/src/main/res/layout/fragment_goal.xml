@@ -8,45 +8,10 @@
     android:background="@color/black_primary"
     tools:context=".Fragments.GoalFragment">
 
-    <TextView
-        android:id="@+id/tv_temp3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Goal Fragment"
-        android:textColor="@color/white"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_goal"
+        android:layout_width="409dp"
+        android:layout_height="601dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="10dp"
-        android:background="@color/black_secondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!--SAMPLE PROGRESS BAR
-        Change element android:progress for displayed progress-->
-        <ProgressBar
-
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="176dp"
-
-            android:layout_height="27dp"
-            android:indeterminateOnly="false"
-            android:progressDrawable="@drawable/bar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:progress="70" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
