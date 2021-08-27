@@ -17,9 +17,10 @@
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/grey_highlight"
         android:ems="10"
+        android:hint="Enter Habit Name"
         android:inputType="textPersonName"
-        android:text="Enter Habit Name"
-        android:textColor="@color/grey"
+        android:textColor="@color/white"
+        android:textColorHint="@color/grey"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,13 +33,32 @@
         android:backgroundTint="@color/grey_highlight"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter Habit Description"
-        android:textColor="@color/grey"
+        android:hint="Enter Habit Name"
+        android:textColor="@color/white"
+        android:textColorHint="@color/grey"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_notif"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/grey_highlight"
+        android:hint="Choose the time"
+        android:textColor="@color/white"
+        android:textColorHint="@color/grey"
+        android:textSize="14sp"
+        android:focusableInTouchMode="false"
+        app:layout_constraintBottom_toBottomOf="@+id/sw_notifSwitch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sw_notifSwitch"
+        app:layout_constraintTop_toTopOf="@+id/sw_notifSwitch" />
 
     <Button
         android:id="@+id/button"
@@ -84,20 +104,19 @@
 
 
         <RadioButton
-            android:id="@+id/rd_todo"
+            android:id="@+id/cb_mon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
-            android:checked="true"
             android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
             android:paddingRight="5dp"
             android:paddingBottom="3dp"
             android:text="One-time"
-            android:textColor="@drawable/radio_selector_text" />
+            android:textColor="@color/radio_selector_text" />
 
         <RadioButton
             android:id="@+id/rd_daily"
@@ -113,7 +132,7 @@
             android:paddingBottom="3dp"
 
             android:text="Daily"
-            android:textColor="@drawable/radio_selector_text" />
+            android:textColor="@color/radio_selector_text" />
 
         <RadioButton
             android:id="@+id/rd_goal"
@@ -127,7 +146,7 @@
             android:paddingRight="5dp"
             android:paddingBottom="3dp"
             android:text="Goal"
-            android:textColor="@drawable/radio_selector_text" />
+            android:textColor="@color/radio_selector_text" />
 
     </RadioGroup>
 
@@ -152,6 +171,7 @@
         android:text="Description"
         android:textColor="@color/grey_highlight"
         android:textSize="12sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_tasktype" />
@@ -188,6 +208,19 @@
         android:text="confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/frc_add"
+        android:name="com.mobdeve.mco.Fragments.DailyAddFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sw_notifSwitch"
+        tools:layout="@layout/fragment_daily_add" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_primary"
+    tools:context=".Fragments.DailyAddFragment">
+
+    <TextView
+        android:id="@+id/tv_add_daily_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_black"
+        android:text="Select days to track habit:"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <CheckBox
+        android:id="@+id/cb_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@android:color/transparent"
+        android:checked="true"
+        android:fontFamily="@font/roboto_black"
+        android:gravity="center"
+        android:text="M"
+        android:textColor="@color/cb_days_selector_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/cb_tue"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cb_tue" />
+
+    <CheckBox
+        android:id="@+id/cb_tue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@android:color/transparent"
+        android:fontFamily="@font/roboto_black"
+        android:gravity="center"
+        android:text="T"
+        android:textColor="@color/cb_days_selector_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/cb_wed"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_mon"
+        app:layout_constraintTop_toTopOf="@+id/cb_wed" />
+
+    <CheckBox
+        android:id="@+id/cb_wed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@android:color/transparent"
+        android:fontFamily="@font/roboto_black"
+        android:gravity="center"
+        android:text="W"
+        android:textColor="@color/cb_days_selector_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/cb_thu"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_tue"
+        app:layout_constraintTop_toTopOf="@+id/cb_thu" />
+
+    <CheckBox
+        android:id="@+id/cb_thu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@android:color/transparent"
+        android:fontFamily="@font/roboto_black"
+        android:gravity="center"
+        android:text="Th"
+        android:textColor="@color/cb_days_selector_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/cb_fri"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_wed"
+        app:layout_constraintTop_toTopOf="@+id/cb_fri" />
+
+    <CheckBox
+        android:id="@+id/cb_fri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@android:color/transparent"
+        android:fontFamily="@font/roboto_black"
+        android:gravity="center"
+        android:text="F"
+        android:textColor="@color/cb_days_selector_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/cb_sat"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_thu"
+        app:layout_constraintTop_toTopOf="@+id/cb_sat" />
+
+    <CheckBox
+        android:id="@+id/cb_sat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@android:color/transparent"
+        android:fontFamily="@font/roboto_black"
+        android:gravity="center"
+        android:text="S"
+        android:textColor="@color/cb_days_selector_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/cb_sun"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_fri"
+        app:layout_constraintTop_toTopOf="@+id/cb_sun" />
+
+    <CheckBox
+        android:id="@+id/cb_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:button="@android:color/transparent"
+        android:fontFamily="@font/roboto_black"
+        android:gravity="center"
+        android:text="Sn"
+        android:textColor="@color/cb_days_selector_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_sat"
+        app:layout_constraintTop_toBottomOf="@+id/tv_add_daily_days" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
