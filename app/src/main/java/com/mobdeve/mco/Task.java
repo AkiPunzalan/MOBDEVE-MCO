@@ -1,12 +1,7 @@
 package com.mobdeve.mco;
 
-import android.graphics.Color;
-
-import androidx.annotation.ColorInt;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Task {
     String name, desc;
@@ -32,7 +27,7 @@ public class Task {
         this.completed = getCompleted(completed);
     }
 
-    public Task() {}
+    public Task(String name, String color, boolean completion, LocalDateTime time) {}
 
     public String getName() {
         return name;
@@ -130,4 +125,7 @@ public class Task {
             return completion;
         }
     }
+
+
+
 }

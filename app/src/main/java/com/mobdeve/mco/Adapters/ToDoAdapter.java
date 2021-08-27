@@ -1,10 +1,16 @@
 package com.mobdeve.mco.Adapters;
 
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobdeve.mco.Activities.TaskDetailsActivity;
+import com.mobdeve.mco.Keys.DetailFields;
+import com.mobdeve.mco.R;
 import com.mobdeve.mco.Task;
 import com.mobdeve.mco.ViewHolders.ToDoViewHolder;
 
@@ -25,16 +31,44 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoViewHolder> {
     @NotNull
     @Override
     public ToDoViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        return null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.item_todo, parent, false);
+
+        ToDoViewHolder vh = new ToDoViewHolder(view);
+
+        vh.getItemLayout().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), TaskDetailsActivity.class);
+
+                Task selectedTask = data.get(vh.getAdapterPosition());
+
+                i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
+                i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
+                i.putExtra(DetailFields.DONE.name(), selectedTask.getCompleted());
+                i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
+                i.putExtra(DetailFields.TYPE.name(), "ToDo");
+
+
+            }
+        });
+
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ToDoViewHolder holder, int position) {
 
+        String item_color = this.data.get(position).getColor();
+
+        holder.setName(this.data.get(position).getName());
+        holder.setColor(this.data.get(position).getColor());
+        holder.setTime(this.data.get(position).getNotif());
+        holder.setCheck(this.data.get(position).getCompleted(), item_color);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.data.size();
     }
 }
