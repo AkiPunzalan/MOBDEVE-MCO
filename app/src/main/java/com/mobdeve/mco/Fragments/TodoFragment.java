@@ -3,12 +3,19 @@ package com.mobdeve.mco.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mobdeve.mco.Adapters.ToDoAdapter;
+import com.mobdeve.mco.DataHelper;
 import com.mobdeve.mco.R;
+import com.mobdeve.mco.Task;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,11 @@ import com.mobdeve.mco.R;
  * create an instance of this fragment.
  */
 public class TodoFragment extends Fragment {
+
+    private DataHelper dataHelper = new DataHelper();
+
+    private RecyclerView rvTodo;
+    private ArrayList<Task> todo_list;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +73,22 @@ public class TodoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_todo, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_todo, container, false);
+
+        todo_list = dataHelper.initTodo();
+        initRecyclerview(v);
+
+        return v;
     }
+
+    public void initRecyclerview(View v) {
+        rvTodo = v.findViewById(R.id.rv_todo);
+
+        rvTodo.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
+        todo_list = dataHelper.initTodo();
+        this.rvTodo.setAdapter(new ToDoAdapter(this.todo_list));
+    }
+
 }
