@@ -45,7 +45,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoViewHolder> {
 
                 i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
                 i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
-                i.putExtra(DetailFields.DONE.name(), selectedTask.getCompleted());
+                i.putExtra(DetailFields.DONE.name(), selectedTask.getStatus());
                 i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
                 i.putExtra(DetailFields.NOTIF.name(), selectedTask.getNotifStringWithMonth());
                 i.putExtra(DetailFields.TYPE.name(), "TODO");
@@ -65,7 +65,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoViewHolder> {
         holder.setName(this.data.get(position).getName());
         holder.setColor(this.data.get(position).getColor());
         holder.setTime(this.data.get(position).getNotif());
-        holder.setCheck(this.data.get(position).getCompleted(), item_color);
+        holder.setCheck(this.data.get(position).getStatus(), item_color);
     }
 
     @Override

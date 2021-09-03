@@ -44,7 +44,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyViewHolder>{
 
                 i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
                 i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
-                i.putExtra(DetailFields.DONE.name(), selectedTask.getCompleted());
+                i.putExtra(DetailFields.DONE.name(), selectedTask.getStatus());
                 i.putExtra(DetailFields.NOTIF.name(), selectedTask.getNotifString());
                 i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
                 i.putExtra(DetailFields.DAYS.name(), selectedTask.getDays());
@@ -63,7 +63,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyViewHolder>{
 
         holder.setName(this.data.get(position).getName());
         holder.setColor(item_color);
-        holder.setCheck(this.data.get(position).getCompleted(), item_color);
+        holder.setCheck(this.data.get(position).getStatus(), item_color);
         holder.setTime(this.data.get(position).getNotif());
         holder.setDaysoftheWeek(this.data.get(position).getDays(), item_color);
     }

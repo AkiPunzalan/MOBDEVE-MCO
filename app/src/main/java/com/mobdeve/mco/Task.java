@@ -4,32 +4,48 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
+    int _id;
     String name, desc;
-    Boolean completed;
+    Boolean status;
     String color;
 
     //TODO: implement notification
     LocalDateTime nextnotif;
 
-    public Task(String name, String desc, LocalDateTime notif, Boolean completed, String color){
+    public Task(String name, String desc, String color, boolean status, LocalDateTime notif){
+        this.name = name;
+        this.desc = desc;
+        this.color = color;
+        this.status = status;
+        this.nextnotif = notif;
+    }
+
+    public Task(int _id, String name, String desc, String color, boolean status, LocalDateTime notif){
+        this._id = _id;
         this.name = name;
         this.desc = desc;
         this.nextnotif = notif;
-        this.completed = completed;
+        this.status = status;
         this.color = color;
     }
 
-    public Task(String name, String desc, String notif, int completed, String color){
+    //db to-do constructor
+    public Task(int _id, String name, String desc, String color, int status, String notif){
+        this._id = _id;
         this.name = name;
         this.desc = desc;
-        this.nextnotif = getNotif(notif);
         this.color = color;
-        this.completed = getCompleted(completed);
+        this.status = getStatus(status);
+        this.nextnotif = getNotif(notif);
     }
 
     public Task(String name, String color, boolean completion, LocalDateTime time) {}
 
     public Task() { }
+
+    public int getId(){
+        return _id;
+    }
 
     public String getName() {
         return name;
@@ -60,12 +76,12 @@ public class Task {
         return "No Notifications";
     }
 
-    public boolean getCompleted() {
-        return completed;
+    public boolean getStatus() {
+        return status;
     }
 
-    public boolean getCompleted(int completed){
-        if(completed == 1)
+    public boolean getStatus(int status){
+        if(status == 1)
             return true;
         else return false;
     }
@@ -78,13 +94,15 @@ public class Task {
         //Monday to sunday, true = selected
         boolean[] days = {false, false, false, false, false, false, false};
 
-        public Daily(String name, String desc, LocalDateTime notif, boolean completed, boolean[] days, String color) {
-            super(name, desc, notif, completed, color);
+        public Daily(String name, String desc, String color, boolean status, LocalDateTime notif, boolean[] days) {
+            super(name, desc, color, status, notif);
             this.days = days;
         }
 
-        public Daily(String name, String desc, String notif, int completed, String days, String color) {
+        //db daily constructor
+        public Daily(int _id, String name, String desc, String color, int status, String notif, String days) {
             super();
+            this._id = _id;
             this.name = name;
             this.desc = desc;
 
@@ -93,7 +111,7 @@ public class Task {
             else this.nextnotif = null;
 
             this.color = color;
-            this.completed = getCompleted(completed);
+            this.status = getStatus(status);
             this.days = getDays(days);
         }
 
@@ -118,12 +136,12 @@ public class Task {
         int completion;
         LocalDateTime enddate;
 
-        public Goal(String name, String desc, LocalDateTime notif, boolean completed, int completion, String color) {
-            super(name, desc, notif, completed, color);
+        public Goal(String name, String desc, String color, boolean status, LocalDateTime notif, int completion) {
+            super(name, desc, color, status, notif);
             this.completion = completion;
         }
 
-        public Goal(String name, String desc, String notif, int completed, int completion, String color) {
+        public Goal(int _id, String name, String desc, String color, int status, String notif, int completion) {
             super();
             this.name = name;
             this.desc = desc;
@@ -133,7 +151,7 @@ public class Task {
             else this.nextnotif = null;
 
             this.color = color;
-            this.completed = getCompleted(completed);
+            this.status = getStatus(status);
             this.completion = completion;
         }
 

@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobdeve.mco.Adapters.ToDoAdapter;
-import com.mobdeve.mco.DataHelper;
 import com.mobdeve.mco.DatabaseHelper;
 import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
@@ -99,11 +98,12 @@ public class TodoFragment extends Fragment {
         } else {
             while(cursor.moveToNext()){
                 todo_list.add(new Task(
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(5),
-                        cursor.getInt(4),
-                        cursor.getString(3))
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getInt(4),
+                    cursor.getString(5))
                 );
             }
         }

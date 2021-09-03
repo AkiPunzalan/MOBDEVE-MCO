@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.mobdeve.mco.Adapters.DailyAdapter;
-import com.mobdeve.mco.DataHelper;
 import com.mobdeve.mco.DatabaseHelper;
 import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
@@ -102,12 +101,13 @@ public class DailyFragment extends Fragment {
         } else {
             while(cursor.moveToNext()){
                 daily_list.add(new Task.Daily(
+                    cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2),
-                    cursor.getString(5),
+                    cursor.getString(3),
                     cursor.getInt(4),
-                    cursor.getString(6),
-                    cursor.getString(3))
+                    cursor.getString(5),
+                    cursor.getString(6))
                 );
             }
         }
