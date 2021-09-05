@@ -80,26 +80,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addDaily(String name, String desc, String color, int status, @Nullable LocalDateTime notif, boolean[] days){
+    public void addDaily(Task.Daily task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_NAME, task.getName());
 
-        if(desc != null)
-            cv.put(COLUMN_DESC, desc);
+        if(task.getDesc() != null)
+            cv.put(COLUMN_DESC, task.getDesc());
         else
             cv.putNull(COLUMN_DESC);
 
-        cv.put(COLUMN_COLOR, color);
-        cv.put(COLUMN_STATUS, status);
+        cv.put(COLUMN_COLOR, task.getColor());
+        cv.put(COLUMN_STATUS, task.getStatus());
 
-        if(notif != null)
-            cv.put(COLUMN_NOTIF, notif.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        if(task.getNotif() != null)
+            cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         else
             cv.putNull(COLUMN_NOTIF);
 
-        cv.put(COLUMN_DAYS, daysToString(days));
+        cv.put(COLUMN_DAYS, daysToString(task.getDays()));
 
         long result = db.insert(TABLE_DAILY, null, cv);
 
@@ -108,22 +108,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void addTodo(String name, String desc, String color, int status, @Nullable LocalDateTime notif){
+    public void addTodo(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_NAME, task.getName());
 
-        if(desc != null)
-            cv.put(COLUMN_DESC, desc);
+        if(task.getDesc() != null)
+            cv.put(COLUMN_DESC, task.getDesc());
         else
             cv.putNull(COLUMN_DESC);
 
-        cv.put(COLUMN_COLOR, color);
-        cv.put(COLUMN_STATUS, status);
+        cv.put(COLUMN_COLOR, task.getColor());
+        cv.put(COLUMN_STATUS, task.getStatus());
 
-        if(notif != null)
-            cv.put(COLUMN_NOTIF, notif.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        if(task.getNotif() != null)
+            cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         else
             cv.putNull(COLUMN_NOTIF);
 
@@ -134,26 +134,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void addGoal(String name, String desc, String color, int status, @Nullable LocalDateTime notif, int progress){
+    public void addGoal(Task.Goal task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_NAME, task.getName());
 
-        if(desc != null)
-            cv.put(COLUMN_DESC, desc);
+        if(task.getDesc() != null)
+            cv.put(COLUMN_DESC, task.getDesc());
         else
             cv.putNull(COLUMN_DESC);
 
-        cv.put(COLUMN_COLOR, color);
-        cv.put(COLUMN_STATUS, status);
+        cv.put(COLUMN_COLOR, task.getColor());
+        cv.put(COLUMN_STATUS, task.getStatus());
 
-        if(notif != null)
-            cv.put(COLUMN_NOTIF, notif.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        if(task.getNotif() != null)
+            cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         else
             cv.putNull(COLUMN_NOTIF);
 
-        cv.put(COLUMN_PROGRESS, progress);
+        cv.put(COLUMN_PROGRESS, task.getCompletion());
 
         long result = db.insert(TABLE_GOAL, null, cv);
 
@@ -173,74 +173,74 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void updateOneDaily(String row_id, String name, String desc, String color, int status, @Nullable LocalDateTime notif, boolean[] days){
+    public void updateOneDaily(Task.Daily task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_NAME, task.getName());
 
-        if(desc != null)
-            cv.put(COLUMN_DESC, desc);
+        if(task.getDesc() != null)
+            cv.put(COLUMN_DESC, task.getDesc());
         else
             cv.putNull(COLUMN_DESC);
 
-        cv.put(COLUMN_COLOR, color);
-        cv.put(COLUMN_STATUS, status);
+        cv.put(COLUMN_COLOR, task.getColor());
+        cv.put(COLUMN_STATUS, task.getStatus());
 
-        if(notif != null)
-            cv.put(COLUMN_NOTIF, notif.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        if(task.getNotif() != null)
+            cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         else
             cv.putNull(COLUMN_NOTIF);
 
-        cv.put(COLUMN_DAYS, daysToString(days));
+        cv.put(COLUMN_DAYS, daysToString(task.getDays()));
 
-        long result = db.update(TABLE_DAILY, cv, "_id=?", new String[]{row_id});
+        long result = db.update(TABLE_DAILY, cv, "_id=?", new String[]{String.valueOf(task.getId())});
     }
 
-    public void updateOneTodo(String row_id, String name, String desc, String color, int status, @Nullable LocalDateTime notif){
+    public void updateOneTodo(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_NAME, task.getName());
 
-        if(desc != null)
-            cv.put(COLUMN_DESC, desc);
+        if(task.getDesc() != null)
+            cv.put(COLUMN_DESC, task.getDesc());
         else
             cv.putNull(COLUMN_DESC);
 
-        cv.put(COLUMN_COLOR, color);
-        cv.put(COLUMN_STATUS, status);
+        cv.put(COLUMN_COLOR, task.getColor());
+        cv.put(COLUMN_STATUS, task.getStatus());
 
-        if(notif != null)
-            cv.put(COLUMN_NOTIF, notif.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        if(task.getNotif() != null)
+            cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         else
             cv.putNull(COLUMN_NOTIF);
 
-        long result = db.update(TABLE_TODO, cv, "_id=?", new String[]{row_id});
+        long result = db.update(TABLE_TODO, cv, "_id=?", new String[]{String.valueOf(task.getId())});
     }
 
-    public void updateOneGoal(String row_id, String name, String desc, String color, int status, @Nullable LocalDateTime notif, int progress){
+    public void updateOneGoal(Task.Goal task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_NAME, task.getName());
 
-        if(desc != null)
-            cv.put(COLUMN_DESC, desc);
+        if(task.getDesc() != null)
+            cv.put(COLUMN_DESC, task.getDesc());
         else
             cv.putNull(COLUMN_DESC);
 
-        cv.put(COLUMN_COLOR, color);
-        cv.put(COLUMN_STATUS, status);
+        cv.put(COLUMN_COLOR, task.getColor());
+        cv.put(COLUMN_STATUS, task.getStatus());
 
-        if(notif != null)
-            cv.put(COLUMN_NOTIF, notif.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        if(task.getNotif() != null)
+            cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         else
             cv.putNull(COLUMN_NOTIF);
 
-        cv.put(COLUMN_PROGRESS, progress);
+        cv.put(COLUMN_PROGRESS, task.getCompletion());
 
-        long result = db.update(TABLE_GOAL, cv, "_id=?", new String[]{row_id});
+        long result = db.update(TABLE_GOAL, cv, "_id=?", new String[]{String.valueOf(task.getId())});
     }
 
     public void deleteOneRow(String row_id, String table){
