@@ -21,6 +21,9 @@
     <color name="task_orange">#F07A48</color>
     <color name="task_gold">#DB8C2C</color>
     <color name="task_green">#96D563</color>
+    <color name="task_mint">#A7FFCA</color>
     <color name="task_teal">#42CDC1</color>
+    <color name="task_blue">#4F91F5</color>
     <color name="task_purple">#4A29E0</color>
+
 </resources>

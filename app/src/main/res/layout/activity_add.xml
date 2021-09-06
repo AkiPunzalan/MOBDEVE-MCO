@@ -32,8 +32,8 @@
         android:layout_marginTop="100dp"
         android:backgroundTint="@color/grey_highlight"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Enter Habit Name"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/grey"
         android:textSize="16sp"
@@ -50,25 +50,41 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="24dp"
         android:backgroundTint="@color/grey_highlight"
+        android:focusableInTouchMode="false"
         android:hint="Choose the time"
         android:textColor="@color/white"
         android:textColorHint="@color/grey"
         android:textSize="14sp"
-        android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="@+id/sw_notifSwitch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sw_notifSwitch"
         app:layout_constraintTop_toTopOf="@+id/sw_notifSwitch" />
 
-    <Button
-        android:id="@+id/button"
+    <ImageView
+        android:id="@+id/iv_add_color"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:paddingTop="5dp"
+        app:tint="@color/task_red"
+        app:layout_constraintBottom_toBottomOf="@+id/et_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/et_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/et_name"
+        app:srcCompat="@drawable/task_color" />
+
+    <ImageButton
+        android:id="@+id/btn_add_color"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_add_color"
+        app:layout_constraintEnd_toEndOf="@+id/iv_add_color"
+        app:layout_constraintStart_toStartOf="@+id/iv_add_color"
+        app:layout_constraintTop_toTopOf="@+id/iv_add_color"
+        app:srcCompat="@drawable/pencil" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -110,6 +126,7 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
+            android:checked="true"
             android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
@@ -168,10 +185,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Description"
+        android:text="@string/todo_desc"
         android:textColor="@color/grey_highlight"
         android:textSize="12sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_tasktype" />
@@ -195,7 +212,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="et_name,rg_tasktype,et_details_dialog_desc,tv_name,tv_tasktype,tv_desc,button,tv_taskdesc,sw_notifSwitch"
+        app:constraint_referenced_ids="et_name,rg_tasktype,et_details_dialog_desc,tv_name,tv_tasktype,tv_desc,iv_add_color,tv_taskdesc,sw_notifSwitch"
         tools:layout_editor_absoluteX="68dp"
         tools:layout_editor_absoluteY="378dp" />
 
