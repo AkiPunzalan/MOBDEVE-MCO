@@ -9,7 +9,7 @@
     android:padding="30dp">
 
     <EditText
-        android:id="@+id/et_details_dialog_name"
+        android:id="@+id/et_details_dialog_desc"
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:layout_marginTop="8dp"
@@ -22,11 +22,11 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_details_dialog_desc" />
+        app:layout_constraintTop_toBottomOf="@+id/et_details_dialog_name" />
 
     <EditText
-        android:id="@+id/et_details_dialog_desc"
-        android:layout_width="200dp"
+        android:id="@+id/et_details_dialog_name"
+        android:layout_width="300dp"
         android:layout_height="41dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/grey_highlight"
@@ -47,19 +47,40 @@
         android:layout_height="wrap_content"
         android:text="Edit Details"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/et_details_dialog_desc"
+        app:layout_constraintBottom_toTopOf="@+id/et_details_dialog_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_details_dialog_confirm"
-        android:layout_width="wrap_content"
+        android:layout_width="61dp"
         android:layout_height="30dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@color/teal_accent"
         android:text="save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_details_dialog_name" />" />
+        app:layout_constraintTop_toBottomOf="@+id/et_details_dialog_desc" />
+
+    <Button
+        android:id="@+id/btn_details_dialog_cancel"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/grey_highlight"
+        android:text="cancel"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_details_dialog_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/btn_details_dialog_confirm"
+        app:layout_constraintTop_toTopOf="@+id/btn_details_dialog_confirm" />
+
+    <Button
+        android:id="@+id/btn_details_dialog_delete"
+        android:layout_width="65dp"
+        android:layout_height="30dp"
+        android:background="@color/task_red"
+        android:text="delete"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_details_dialog_confirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_details_dialog_confirm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,13 +21,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobdeve.mco.Fragments.*;
 import com.mobdeve.mco.Keys.DetailFields;
 import com.mobdeve.mco.R;
-
-import java.util.Arrays;
 
 public class TaskDetailsActivity extends AppCompatActivity {
 
@@ -47,9 +43,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_details);
-
-        initComponents();
-
         i = getIntent();
 
         type = i.getStringExtra(DetailFields.TYPE.name());
@@ -59,10 +52,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
         color = i.getStringExtra(DetailFields.COLOR.name());
         done = i.getBooleanExtra(DetailFields.DONE.name(), false);
 
-        tvName.setText(name);
-        setDesc(desc);
-        tvNotif.setText(notif);
-        setDone(done, color);
+        initComponents();
 
         displayFragment(type);
     }
@@ -71,9 +61,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.edit_details, menu);
-
-
-
         return true;
     }
 
@@ -90,8 +77,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
             dialog.setContentView(R.layout.dialog_editdetails);
 
             //INIT DIALOG COMPONENTS
-            final EditText etEditName = dialog.findViewById(R.id.et_details_dialog_name);
-            final EditText etEditDesc = dialog.findViewById(R.id.et_details_dialog_desc);
+            initDialogComponents(dialog);
 
             Button btnConfirm = dialog.findViewById(R.id.btn_details_dialog_confirm);
             btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -106,11 +92,21 @@ public class TaskDetailsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void initDialogComponents(Dialog d) {
+        final EditText etEditName = d.findViewById(R.id.et_details_dialog_name);
+        final EditText etEditDesc = d.findViewById(R.id.et_details_dialog_desc);
+
+        etEditName.setHint(this.name);
+
+        if(this.desc != null)
+            etEditDesc.setHint(this.desc);
+    }
+
     private void initComponents(){
         frcDetails = findViewById(R.id.frc_details);
 
         toolbar = getSupportActionBar();
-        toolbar.setTitle("Daily Habits");
+        toolbar.setTitle("Task Details");
 
         tvName = findViewById(R.id.tv_details_name);
         tvDesc = findViewById(R.id.tv_details_desc);
@@ -126,8 +122,10 @@ public class TaskDetailsActivity extends AppCompatActivity {
             }
         });
 
-        //DIALOG INIT
-
+        tvName.setText(name);
+        setDesc(desc);
+        tvNotif.setText(notif);
+        setDone(done, color);
     }
 
     private void setDesc(String desc){
@@ -165,6 +163,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
 
         Bundle args = new Bundle();
 
+        //add intent values relevant to fragments
         args.putBooleanArray(DetailFields.DAYS.name(), i.getBooleanArrayExtra(DetailFields.DAYS.name()));
         args.putString(DetailFields.COLOR.name(), color);
         args.putInt(DetailFields.PROGRESS.name(), i.getIntExtra(DetailFields.PROGRESS.name(), 0));
