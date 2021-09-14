@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mobdeve.mco.Adapters.DailyAdapter;
 import com.mobdeve.mco.Adapters.ToDoAdapter;
 import com.mobdeve.mco.DatabaseHelper;
 import com.mobdeve.mco.Keys.Types;
@@ -30,6 +31,7 @@ public class TodoFragment extends Fragment {
     private DatabaseHelper db;
 
     private RecyclerView rvTodo;
+    private ToDoAdapter adapter;
     private ArrayList<Task> todo_list = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
@@ -73,6 +75,15 @@ public class TodoFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        todo_list.clear();
+        todo_list.addAll(initTodo(new ArrayList<Task>()));
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_todo, container, false);
@@ -82,22 +93,23 @@ public class TodoFragment extends Fragment {
         return v;
     }
 
-    public void initRecyclerview(View v) {
+    private void initRecyclerview(View v) {
         rvTodo = v.findViewById(R.id.rv_todo);
         db = new DatabaseHelper(getActivity());
-        initTodo();
+        initTodo(todo_list);
 
+        adapter = new ToDoAdapter(this.todo_list);
         rvTodo.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        this.rvTodo.setAdapter(new ToDoAdapter(this.todo_list));
+        this.rvTodo.setAdapter(adapter);
     }
 
-    private void initTodo(){
+    private ArrayList<Task> initTodo(ArrayList<Task> data){
         Cursor cursor = db.readTable(Types.Todo.name());
         if(cursor.getCount() == 0){
             Log.v("database initialize", "database empty");
         } else {
             while(cursor.moveToNext()){
-                todo_list.add(new Task(
+                data.add(new Task(
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2),
@@ -107,6 +119,7 @@ public class TodoFragment extends Fragment {
                 );
             }
         }
+        return data;
     }
 
 }

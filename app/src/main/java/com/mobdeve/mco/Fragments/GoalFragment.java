@@ -30,6 +30,7 @@ public class GoalFragment extends Fragment {
     private DatabaseHelper db;
 
     private RecyclerView rvGoal;
+    private GoalAdapter adapter;
     private ArrayList<Task.Goal> goals_list = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
@@ -73,6 +74,15 @@ public class GoalFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        goals_list.clear();
+        goals_list.addAll(initGoals(new ArrayList<Task.Goal>()));
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -86,19 +96,20 @@ public class GoalFragment extends Fragment {
     private void initRecyclerview(View v){
         rvGoal = v.findViewById(R.id.rv_goal);
         db = new DatabaseHelper(getActivity());
-        initGoals();
+        initGoals(goals_list);
 
+        adapter = new GoalAdapter(this.goals_list);
         rvGoal.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        this.rvGoal.setAdapter(new GoalAdapter(this.goals_list));
+        this.rvGoal.setAdapter(adapter);
     }
 
-    private void initGoals(){
+    private ArrayList<Task.Goal> initGoals(ArrayList<Task.Goal> data){
         Cursor cursor = db.readTable(Types.Goal.name());
         if(cursor.getCount() == 0){
             Log.v("database initialize", "database empty");
         } else {
             while(cursor.moveToNext()){
-                goals_list.add(new Task.Goal(
+                data.add(new Task.Goal(
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2),
@@ -109,6 +120,7 @@ public class GoalFragment extends Fragment {
                 );
             }
         }
+        return data;
     }
 
 }

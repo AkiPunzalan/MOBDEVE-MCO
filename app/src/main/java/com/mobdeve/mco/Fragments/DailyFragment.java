@@ -32,6 +32,7 @@ public class DailyFragment extends Fragment {
     private DatabaseHelper db;
 
     private RecyclerView rvDaily;
+    private DailyAdapter adapter;
     private ArrayList<Task.Daily> daily_list = new ArrayList<Task.Daily>();
 
     // TODO: Rename parameter arguments, choose names that match
@@ -75,6 +76,15 @@ public class DailyFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        daily_list.clear();
+        daily_list.addAll(initDaily(new ArrayList<Task.Daily>()));
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -88,19 +98,20 @@ public class DailyFragment extends Fragment {
     private void initRecyclerview(View v){
         rvDaily = v.findViewById(R.id.rv_daily);
         db = new DatabaseHelper(getActivity());
-        initDaily();
+        initDaily(daily_list);
 
+        adapter = new DailyAdapter(this.daily_list);
         rvDaily.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        this.rvDaily.setAdapter(new DailyAdapter(this.daily_list));
+        this.rvDaily.setAdapter(adapter);
     }
 
-    private void initDaily(){
+    private ArrayList<Task.Daily> initDaily(ArrayList<Task.Daily> data){
         Cursor cursor = db.readTable(Types.Daily.name());
         if(cursor.getCount() == 0){
             Log.v("database initialize", "database empty");
         } else {
             while(cursor.moveToNext()){
-                daily_list.add(new Task.Daily(
+                data.add(new Task.Daily(
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2),
@@ -111,5 +122,6 @@ public class DailyFragment extends Fragment {
                 );
             }
         }
+        return data;
     }
 }
