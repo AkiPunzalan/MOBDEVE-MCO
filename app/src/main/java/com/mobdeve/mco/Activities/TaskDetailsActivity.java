@@ -21,19 +21,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mobdeve.mco.DatabaseHelper;
 import com.mobdeve.mco.Fragments.*;
 import com.mobdeve.mco.Keys.DetailFields;
+import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
 
 public class TaskDetailsActivity extends AppCompatActivity {
 
+    private DatabaseHelper db = new DatabaseHelper(TaskDetailsActivity.this);
+
     private ImageView ivCheck;
-    private TextView tvName, tvDesc, tvDone, tvNotif;
+    private TextView tvName, tvDesc, tvDone, tvNotif, tvCheckin;
+    private EditText etEditName, etEditDesc;
+    private Button btnDelete, btnCancel, btnSave;
 
     private FragmentContainerView frcDetails;
     private ActionBar toolbar;
 
+    //object values
+    int id;
     String type, name, desc, notif, color;
     Boolean done;
 
@@ -43,18 +52,12 @@ public class TaskDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_details);
-        i = getIntent();
 
-        type = i.getStringExtra(DetailFields.TYPE.name());
-        name = i.getStringExtra(DetailFields.NAME.name());
-        desc = i.getStringExtra(DetailFields.DESC.name());
-        notif = i.getStringExtra(DetailFields.NOTIF.name());
-        color = i.getStringExtra(DetailFields.COLOR.name());
-        done = i.getBooleanExtra(DetailFields.DONE.name(), false);
-
+        getIntentValues();
         initComponents();
-
         displayFragment(type);
+
+        Toast.makeText(this, String.valueOf(id) + " " + type, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -92,9 +95,49 @@ public class TaskDetailsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void getIntentValues(){
+        i = getIntent();
+
+        id = i.getIntExtra(DetailFields.ID.name(), -1);
+        type = i.getStringExtra(DetailFields.TYPE.name());
+        name = i.getStringExtra(DetailFields.NAME.name());
+        desc = i.getStringExtra(DetailFields.DESC.name());
+        notif = i.getStringExtra(DetailFields.NOTIF.name());
+        color = i.getStringExtra(DetailFields.COLOR.name());
+        done = i.getBooleanExtra(DetailFields.DONE.name(), false);
+    }
+
     private void initDialogComponents(Dialog d) {
-        final EditText etEditName = d.findViewById(R.id.et_details_dialog_name);
-        final EditText etEditDesc = d.findViewById(R.id.et_details_dialog_desc);
+        etEditName = d.findViewById(R.id.et_details_dialog_name);
+        etEditDesc = d.findViewById(R.id.et_details_dialog_desc);
+
+        btnDelete = d.findViewById(R.id.btn_details_dialog_delete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteOneRow(String.valueOf(id), type);
+                d.dismiss();
+                finish();
+            }
+        });
+
+        btnCancel = d.findViewById(R.id.btn_details_dialog_cancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+
+        btnSave = d.findViewById(R.id.btn_details_dialog_confirm);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //UpdateTask();
+                d.dismiss();
+            }
+        });
+
 
         etEditName.setHint(this.name);
 
@@ -113,12 +156,17 @@ public class TaskDetailsActivity extends AppCompatActivity {
         tvDone = findViewById(R.id.tv_details_done);
         tvNotif = findViewById(R.id.tv_details_notif);
 
+        tvCheckin = findViewById(R.id.tv_details_checkin);
+        if(type.equals(Types.Goal.name()))
+            tvCheckin.setVisibility(View.GONE);
+
         ivCheck = findViewById(R.id.iv_details_done);
         ivCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 done = !done;
                 setDone(done, color);
+                db.updateStatus(id, done, type);
             }
         });
 
@@ -147,12 +195,36 @@ public class TaskDetailsActivity extends AppCompatActivity {
         }
     }
 
+    private void UpdateTask(){
+        String newName, newDesc;
+
+        if(etEditName.getText().toString().trim().equals(""))
+            newName = name;
+        else newName = etEditName.getText().toString().trim();
+
+        if(etEditDesc.getText().toString().trim().equals(""))
+            newDesc = desc;
+        else newDesc = etEditDesc.getText().toString().trim();
+
+        switch (type){
+            case "Todo":
+                //db.updateOneTodo(); //TODO: Make separate update methods for status, notif, days edit name|desc|days
+                break;
+
+            case "Daily":
+                break;
+
+            case "Goal":
+        }
+
+    }
+
     private void displayFragment(String type){
         switch (type){
-            case "DAILY":
+            case "Daily":
                 loadFragment(new DailyDetailsFragment());
                 break;
-            case "GOAL": loadFragment(new GoalDetailsFragment());
+            case "Goal": loadFragment(new GoalDetailsFragment());
                 break;
             default: frcDetails.setVisibility(View.GONE);
         }

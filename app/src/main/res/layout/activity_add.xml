@@ -55,9 +55,9 @@
         android:textColor="@color/white"
         android:textColorHint="@color/grey"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/sw_notifSwitch"
-        app:layout_constraintStart_toEndOf="@+id/sw_notifSwitch"
-        app:layout_constraintTop_toTopOf="@+id/sw_notifSwitch" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_add_notiflabel"
+        app:layout_constraintStart_toEndOf="@+id/tv_add_notiflabel"
+        app:layout_constraintTop_toTopOf="@+id/tv_add_notiflabel" />
 
     <EditText
         android:id="@+id/et_notif_date"
@@ -72,9 +72,9 @@
         android:textColor="@color/white"
         android:textColorHint="@color/grey"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/sw_notifSwitch"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_add_notiflabel"
         app:layout_constraintStart_toEndOf="@+id/et_notif"
-        app:layout_constraintTop_toTopOf="@+id/sw_notifSwitch" />
+        app:layout_constraintTop_toTopOf="@+id/tv_add_notiflabel" />
 
     <ImageView
         android:id="@+id/iv_add_color"
@@ -210,7 +210,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_tasktype" />
 
     <TextView
-        android:id="@+id/sw_notifSwitch"
+        android:id="@+id/tv_add_notiflabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -226,7 +226,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="et_add_name,rg_tasktype,et_add_desc,tv_name,tv_tasktype,tv_desc,iv_add_color,tv_taskdesc,sw_notifSwitch"
+        app:constraint_referenced_ids="et_add_name,rg_tasktype,et_add_desc,tv_name,tv_tasktype,tv_desc,iv_add_color,tv_taskdesc,tv_add_notiflabel"
         tools:layout_editor_absoluteX="68dp"
         tools:layout_editor_absoluteY="378dp" />
 
@@ -250,7 +250,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw_notifSwitch"
+        app:layout_constraintTop_toBottomOf="@+id/tv_add_notiflabel"
         tools:layout="@layout/fragment_daily_add" />
 
 

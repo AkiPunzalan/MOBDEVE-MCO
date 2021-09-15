@@ -9,7 +9,6 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -80,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addDaily(Task.Daily task){
+    public long addDaily(Task.Daily task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -106,9 +105,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(result == -1){
             Log.v("database insert", "insert failed - daily");
         }
+
+        db.close();
+        return result;
     }
 
-    public void addTodo(Task task){
+    public long addTodo(Task task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -132,9 +134,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(result == -1){
             Log.v("database insert", "insert failed - todo");
         }
+
+        db.close();
+        return result;
     }
 
-    public void addGoal(Task.Goal task){
+    public long addGoal(Task.Goal task){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -153,13 +158,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             cv.putNull(COLUMN_NOTIF);
 
-        cv.put(COLUMN_PROGRESS, task.getCompletion());
+        cv.put(COLUMN_PROGRESS, task.getProgress());
 
         long result = db.insert(TABLE_GOAL, null, cv);
 
         if(result == -1){
             Log.v("database insert", "insert failed - goal");
         }
+
+        db.close();
+        return result;
     }
 
     public Cursor readTable(String table){
@@ -171,6 +179,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor = db.rawQuery(query, null);
         }
         return cursor;
+    }
+
+    public void updateStatus(int id, boolean status, String table){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_STATUS, status);
+
+        long result = db.update(table, cv, "_id=?", new String[]{String.valueOf(id)});
     }
 
     public void updateOneDaily(Task.Daily task){
@@ -238,7 +255,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             cv.putNull(COLUMN_NOTIF);
 
-        cv.put(COLUMN_PROGRESS, task.getCompletion());
+        cv.put(COLUMN_PROGRESS, task.getProgress());
 
         long result = db.update(TABLE_GOAL, cv, "_id=?", new String[]{String.valueOf(task.getId())});
     }

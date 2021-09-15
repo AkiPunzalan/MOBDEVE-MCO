@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createNotifChannel();
 
         toolbar = getSupportActionBar();
         toolbar.setTitle("Daily Habits");
@@ -103,5 +106,17 @@ public class MainActivity extends AppCompatActivity {
     private String getToday(){
         LocalDateTime today = LocalDateTime.now();
         return today.format(DateTimeFormatter.ofPattern("EE, dd MMM"));
+    }
+
+    public void createNotifChannel(){
+        CharSequence name = "TaskNotifChannel";
+        String desc = "Channel for Tasks";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+
+        NotificationChannel channel = new NotificationChannel("DoWhile", name, importance);
+        channel.setDescription(desc);
+
+        NotificationManager notifManager = getSystemService(NotificationManager.class);
+        notifManager.createNotificationChannel(channel);
     }
 }

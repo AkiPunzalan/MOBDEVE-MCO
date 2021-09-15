@@ -16,6 +16,7 @@
         android:text="Days to be notified:"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,6 +31,7 @@
         android:text="M"
         android:textColor="@color/cb_days_selector_text"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/cb_notif_goal_tue"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -46,6 +48,7 @@
         android:text="T"
         android:textColor="@color/cb_days_selector_text"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/cb_notif_goal_wed"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cb_notif_goal_mon"
@@ -61,6 +64,7 @@
         android:text="W"
         android:textColor="@color/cb_days_selector_text"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/cb_notif_goal_thu"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cb_notif_goal_tue"
@@ -76,6 +80,7 @@
         android:text="Th"
         android:textColor="@color/cb_days_selector_text"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/cb_notif_goal_fri"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cb_notif_goal_wed"
@@ -91,6 +96,7 @@
         android:text="F"
         android:textColor="@color/cb_days_selector_text"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/cb_notif_goal_sat"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cb_notif_goal_thu"
@@ -106,6 +112,7 @@
         android:text="S"
         android:textColor="@color/cb_days_selector_text"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/cb_notif_goal_sun"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cb_notif_goal_fri"
@@ -122,6 +129,7 @@
         android:text="Sn"
         android:textColor="@color/cb_days_selector_text"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cb_notif_goal_sat"
@@ -134,6 +142,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:padding="10dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/tv_add_goal_goaltime"
         app:layout_constraintTop_toBottomOf="@+id/tv_add_goal_goaltime">
 
@@ -143,7 +152,8 @@
             android:layout_height="wrap_content"
             android:buttonTint="@color/white"
             android:text="1 week"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone" />
 
         <RadioButton
             android:id="@+id/rb_goaltime_month"
@@ -151,7 +161,8 @@
             android:layout_height="wrap_content"
             android:buttonTint="@color/white"
             android:text="1 month"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone" />
 
         <RadioButton
             android:id="@+id/rb_goaltime_custom"
@@ -159,7 +170,8 @@
             android:layout_height="wrap_content"
             android:buttonTint="@color/white"
             android:text="custom"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone" />
     </RadioGroup>
 
     <TextView
@@ -172,6 +184,7 @@
         android:text="Reach goal within"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_add_goal_days" />
 
@@ -186,6 +199,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/grey_highlight"
         android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/rg_goaltime"
         app:layout_constraintStart_toEndOf="@+id/rg_goaltime" />
 </androidx.constraintlayout.widget.ConstraintLayout>

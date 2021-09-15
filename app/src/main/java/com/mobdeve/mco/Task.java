@@ -4,12 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
-    int _id;
-    String name, desc;
-    Boolean status;
-    String color;
+    protected int _id;
+    protected String name, desc;
+    protected Boolean status;
+    protected String color;
 
-    //TODO: implement notification
     LocalDateTime nextnotif;
 
     public Task(String name, String desc, String color, boolean status, LocalDateTime notif){
@@ -18,15 +17,6 @@ public class Task {
         this.color = color;
         this.status = status;
         this.nextnotif = notif;
-    }
-
-    public Task(int _id, String name, String desc, String color, boolean status, LocalDateTime notif){
-        this._id = _id;
-        this.name = name;
-        this.desc = desc;
-        this.nextnotif = notif;
-        this.status = status;
-        this.color = color;
     }
 
     //db to-do constructor
@@ -38,8 +28,6 @@ public class Task {
         this.status = getStatus(status);
         this.nextnotif = getNotif(notif);
     }
-
-    public Task(String name, String color, boolean completion, LocalDateTime time) {}
 
     public Task() { }
 
@@ -133,16 +121,19 @@ public class Task {
     }
 
     public static class Goal extends Task{
-        int completion;
+        int currentprogress, maxreq;
         LocalDateTime enddate;
 
-        public Goal(String name, String desc, String color, boolean status, LocalDateTime notif, int completion) {
+        public Goal(String name, String desc, String color, boolean status, LocalDateTime notif, int currentprogress) {
             super(name, desc, color, status, notif);
-            this.completion = completion;
+            this.currentprogress = currentprogress;
+//            this.maxreq = maxreq;
+//            this.enddate = enddate;
         }
 
-        public Goal(int _id, String name, String desc, String color, int status, String notif, int completion) {
+        public Goal(int _id, String name, String desc, String color, int status, String notif, int currentprogress) {
             super();
+            this._id = _id;
             this.name = name;
             this.desc = desc;
 
@@ -152,11 +143,11 @@ public class Task {
 
             this.color = color;
             this.status = getStatus(status);
-            this.completion = completion;
+            this.currentprogress = currentprogress;
         }
 
-        public int getCompletion(){
-            return completion;
+        public int getProgress(){
+            return currentprogress;
         }
     }
 
