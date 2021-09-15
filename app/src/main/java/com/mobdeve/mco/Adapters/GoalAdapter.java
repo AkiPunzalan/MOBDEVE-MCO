@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.mco.Activities.TaskDetailsActivity;
 import com.mobdeve.mco.Keys.DetailFields;
+import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
 import com.mobdeve.mco.Task;
 import com.mobdeve.mco.ViewHolders.GoalViewHolder;
@@ -43,13 +44,14 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalViewHolder> {
 
                 Task.Goal selectedTask = data.get(vh.getBindingAdapterPosition());
 
+                i.putExtra(DetailFields.ID.name(), selectedTask.getId());
                 i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
                 i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
                 i.putExtra(DetailFields.DONE.name(), selectedTask.getStatus());
                 i.putExtra(DetailFields.NOTIF.name(), selectedTask.getNotifString());
                 i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
-                i.putExtra(DetailFields.TYPE.name(), "GOAL");
-                i.putExtra(DetailFields.PROGRESS.name(), selectedTask.getCompletion());
+                i.putExtra(DetailFields.TYPE.name(), Types.Goal.name());
+                i.putExtra(DetailFields.PROGRESS.name(), selectedTask.getProgress());
 
                 v.getContext().startActivity(i);
             }
@@ -66,7 +68,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalViewHolder> {
         holder.setColor(item_color);
         holder.setCheck(this.data.get(position).getStatus(), item_color);
         holder.setTime(this.data.get(position).getNotif());
-        holder.setProgress(this.data.get(position).getCompletion(), item_color);
+        holder.setProgress(this.data.get(position).getProgress(), item_color);
 
     }
 

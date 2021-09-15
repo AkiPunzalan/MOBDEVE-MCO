@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobdeve.mco.Activities.TaskDetailsActivity;
 import com.mobdeve.mco.Keys.DetailFields;
+import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
 import com.mobdeve.mco.Task;
 import com.mobdeve.mco.ViewHolders.ToDoViewHolder;
@@ -43,12 +44,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoViewHolder> {
 
                 Task selectedTask = data.get(vh.getBindingAdapterPosition());
 
+                i.putExtra(DetailFields.ID.name(), selectedTask.getId());
                 i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
                 i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
                 i.putExtra(DetailFields.DONE.name(), selectedTask.getStatus());
                 i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
                 i.putExtra(DetailFields.NOTIF.name(), selectedTask.getNotifStringWithMonth());
-                i.putExtra(DetailFields.TYPE.name(), "TODO");
+                i.putExtra(DetailFields.TYPE.name(), Types.Todo.name());
 
                 v.getContext().startActivity(i);
             }
