@@ -52,17 +52,12 @@ public class ToDoViewHolder extends RecyclerView.ViewHolder {
 
     public void setTime(LocalDateTime time){
         String formatedtime;
-        LocalDateTime today = LocalDateTime.now();
 
         if(time == null){
             ivAlarm.setVisibility(View.GONE);
             tvTime.setVisibility(View.GONE);
-        }
-        else if(!(today.getYear() == time.getYear() && today.getMonth() == time.getMonth() && today.getDayOfMonth() == time.getDayOfMonth())){
-            formatedtime = time.format(DateTimeFormatter.ofPattern("dd MMM hh:mm a"));
-            tvTime.setText(formatedtime);
         } else {
-            formatedtime = time.format(DateTimeFormatter.ofPattern("dd MMM hh:mm a"));
+            formatedtime = time.format(DateTimeFormatter.ofPattern("dd MMM, hh:mm a"));
             tvTime.setText(formatedtime);
         }
     }

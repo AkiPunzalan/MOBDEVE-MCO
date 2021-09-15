@@ -69,10 +69,6 @@ public class DailyViewHolder extends RecyclerView.ViewHolder{
         if(time == null){
             ivAlarm.setVisibility(View.GONE);
             tvTime.setVisibility(View.GONE);
-        }
-        else if(!(today.getYear() == time.getYear() && today.getMonth() == time.getMonth() && today.getDayOfMonth() == time.getDayOfMonth())){
-            formatedtime = "starts at " + time.format(DateTimeFormatter.ofPattern("EE, hh:mm a"));
-            tvTime.setText(formatedtime);
         } else {
             formatedtime = "starts at " + time.format(DateTimeFormatter.ofPattern("hh:mm a"));
             tvTime.setText(formatedtime);
