@@ -193,18 +193,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_tasktype" />
 
-    <androidx.appcompat.widget.SwitchCompat
+    <TextView
         android:id="@+id/sw_notifSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Notify "
+        android:text="Notify* "
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_taskdesc"
-        app:thumbTint="@color/selector"
-        app:trackTint="@color/switch_track_selector" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskdesc" />
 
 
     <androidx.constraintlayout.widget.Barrier
