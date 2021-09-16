@@ -10,7 +10,9 @@ import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,17 +20,22 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mobdeve.mco.DatabaseHelper;
 import com.mobdeve.mco.Fragments.*;
 import com.mobdeve.mco.R;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SharedPreferences sp;
+    private DatabaseHelper db;
     private TextView tvToday;
     private BottomNavigationView nav;
     private FloatingActionButton fab_add;
@@ -38,12 +45,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DatabaseHelper(this);
         createNotifChannel();
 
         toolbar = getSupportActionBar();
         toolbar.setTitle("Daily Habits");
 
         initComponents();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //Reset Daily Statuses on the next day
+        int lastStartupTime= sp.getInt("last_time_started", -1);
+        int today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+
+        if (today != lastStartupTime) {
+            db.resetStatus();
+
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt("last_time_started", today);
+            editor.apply();
+        }
     }
 
     private void initComponents(){
