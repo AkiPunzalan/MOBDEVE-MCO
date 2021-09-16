@@ -115,7 +115,8 @@ public class TodoFragment extends Fragment {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getInt(4),
-                    cursor.getString(5))
+                    cursor.getInt(5),
+                    cursor.getString(6))
                 );
             }
         }

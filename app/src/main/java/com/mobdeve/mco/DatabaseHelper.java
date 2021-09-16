@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DESC = "description";
     private static final String COLUMN_COLOR = "color";
     private static final String COLUMN_STATUS = "status";
+    private static final String COLUMN_NOTIFON = "notif_on";
     private static final String COLUMN_NOTIF = "next_notif";
 
     private static final String COLUMN_DAYS = "selected_days";
@@ -38,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_DESC + " TEXT, " +
             COLUMN_COLOR + " TEXT, " +
             COLUMN_STATUS + " INTEGER, " +
+            COLUMN_NOTIFON + " INTEGER, " +
             COLUMN_NOTIF + " TEXT, " +
             COLUMN_DAYS + " TEXT);";
 
@@ -47,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_DESC + " TEXT, " +
             COLUMN_COLOR + " TEXT, " +
             COLUMN_STATUS + " INTEGER, " +
+            COLUMN_NOTIFON + " INTEGER, " +
             COLUMN_NOTIF + " TEXT);";
 
     private static final String CREATE_TABLE_GOAL = "CREATE TABLE " + TABLE_GOAL +
@@ -55,6 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_DESC + " TEXT, " +
             COLUMN_COLOR + " TEXT, " +
             COLUMN_STATUS + " INTEGER, " +
+            COLUMN_NOTIFON + " INTEGER, " +
             COLUMN_NOTIF + " TEXT, " +
             COLUMN_PROGRESS + " INTEGER);";
 
@@ -92,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_COLOR, task.getColor());
         cv.put(COLUMN_STATUS, task.getStatus());
+        cv.put(COLUMN_NOTIFON, task.getNotifOn());
 
         if(task.getNotif() != null)
             cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -123,6 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_COLOR, task.getColor());
         cv.put(COLUMN_STATUS, task.getStatus());
+        cv.put(COLUMN_NOTIFON, task.getNotifOn());
 
         if(task.getNotif() != null)
             cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -152,6 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_COLOR, task.getColor());
         cv.put(COLUMN_STATUS, task.getStatus());
+        cv.put(COLUMN_NOTIFON, task.getNotifOn());
 
         if(task.getNotif() != null)
             cv.put(COLUMN_NOTIF, task.getNotif().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -186,6 +193,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_STATUS, status);
+
+        long result = db.update(table, cv, "_id=?", new String[]{String.valueOf(id)});
+    }
+
+    public void updateNotifOn(int id, boolean isOn, String table){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_NOTIFON, isOn);
 
         long result = db.update(table, cv, "_id=?", new String[]{String.valueOf(id)});
     }

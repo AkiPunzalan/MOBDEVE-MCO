@@ -2,6 +2,7 @@ package com.mobdeve.mco.Activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
@@ -37,6 +38,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
     private TextView tvName, tvDesc, tvDone, tvNotif, tvCheckin;
     private EditText etEditName, etEditDesc;
     private Button btnDelete, btnCancel, btnSave;
+    private SwitchCompat swNotif;
 
     private FragmentContainerView frcDetails;
     private ActionBar toolbar;
@@ -44,7 +46,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
     //object values
     int id;
     String type, name, desc, notif, color;
-    Boolean done;
+    Boolean done, notifOn;
 
     Intent i;
 
@@ -95,6 +97,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
         notif = i.getStringExtra(DetailFields.NOTIF.name());
         color = i.getStringExtra(DetailFields.COLOR.name());
         done = i.getBooleanExtra(DetailFields.DONE.name(), false);
+        notifOn = i.getBooleanExtra(DetailFields.NOTIFON.name(), true);
     }
 
     private void initDialogComponents(Dialog d) {
@@ -155,10 +158,21 @@ public class TaskDetailsActivity extends AppCompatActivity {
             }
         });
 
+        swNotif = findViewById(R.id.sw_details_label_notif);
+        swNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notifOn = !notifOn;
+                swNotif.setChecked(notifOn);
+                db.updateNotifOn(id, notifOn, type);
+            }
+        });
+
         tvName.setText(name);
         setDesc(desc);
         tvNotif.setText(notif);
         setDone(done, color);
+        swNotif.setChecked(notifOn);
     }
 
     private void setDesc(String desc){

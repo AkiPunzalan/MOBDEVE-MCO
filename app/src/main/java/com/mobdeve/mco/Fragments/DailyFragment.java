@@ -117,8 +117,9 @@ public class DailyFragment extends Fragment {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getInt(4),
-                    cursor.getString(5),
-                    cursor.getString(6))
+                    cursor.getInt(5),
+                    cursor.getString(6),
+                    cursor.getString(7))
                 );
             }
         }

@@ -50,6 +50,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyViewHolder>{
                 i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
                 i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
                 i.putExtra(DetailFields.DONE.name(), selectedTask.getStatus());
+                i.putExtra(DetailFields.NOTIFON.name(), selectedTask.getNotifOn());
                 i.putExtra(DetailFields.NOTIF.name(), selectedTask.getNotifString());
                 i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
                 i.putExtra(DetailFields.DAYS.name(), selectedTask.getDays());

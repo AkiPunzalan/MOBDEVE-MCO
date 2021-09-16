@@ -48,6 +48,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalViewHolder> {
                 i.putExtra(DetailFields.NAME.name(), selectedTask.getName());
                 i.putExtra(DetailFields.DESC.name(), selectedTask.getDesc());
                 i.putExtra(DetailFields.DONE.name(), selectedTask.getStatus());
+                i.putExtra(DetailFields.NOTIFON.name(), selectedTask.getNotifOn());
                 i.putExtra(DetailFields.NOTIF.name(), selectedTask.getNotifString());
                 i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
                 i.putExtra(DetailFields.TYPE.name(), Types.Goal.name());

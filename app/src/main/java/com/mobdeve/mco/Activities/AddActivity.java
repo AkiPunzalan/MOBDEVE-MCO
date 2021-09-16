@@ -222,19 +222,19 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
 
         //add To-do
         if(type.equals(Types.Todo.name())){
-            resultId = db.addTodo(new Task(name, desc, color, false,
+            resultId = db.addTodo(new Task(name, desc, color, false, true,
                     LocalDateTime.of(year, month, day, hour, min, 0)));
         }
         //add Daily
         else if(type.equals(Types.Daily.name())){
             LocalDateTime today = LocalDateTime.now();
-            resultId = db.addDaily(new Task.Daily(name, desc, color, false,
+            resultId = db.addDaily(new Task.Daily(name, desc, color, false, true,
                     LocalDateTime.of(today.getYear(), 10, 13, hour, min, 0),
                     daysOfWeek));
         }
         //add Goal
         else if(type.equals(Types.Goal.name())){
-            resultId = db.addGoal(new Task.Goal(name, desc, color, false,
+            resultId = db.addGoal(new Task.Goal(name, desc, color, false, true,
                     LocalDateTime.of(year, month, day, hour, min, 0),
                     0));
         }
