@@ -18,19 +18,23 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent notifIntent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notifIntent, 0);
+        int NOTIF_ID = intent.getIntExtra("notifId", 0);
 
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(context, NOTIF_ID, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //Channel ID same as ID in CreateNotifChannel
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "DoWhile")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("DoWhile Habit Tracker")
-                .setContentText("sample text...")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle(intent.getStringExtra("TaskName"))
+                .setContentText("filler text...")
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent);
 
         NotificationManagerCompat notifManagerCompat = NotificationManagerCompat.from(context);
-        notifManagerCompat.notify(1, builder.build());
+        notifManagerCompat.notify(NOTIF_ID, builder.build());
     }
 }
