@@ -12,7 +12,6 @@
         android:id="@+id/et_details_dialog_desc"
         android:layout_width="0dp"
         android:layout_height="41dp"
-        android:layout_marginTop="8dp"
         android:backgroundTint="@color/grey_highlight"
         android:ems="10"
         android:hint="Enter Habit description"
@@ -22,13 +21,12 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_details_dialog_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_details_dialog_label_desc" />
 
     <EditText
         android:id="@+id/et_details_dialog_name"
         android:layout_width="300dp"
         android:layout_height="41dp"
-        android:layout_marginTop="32dp"
         android:backgroundTint="@color/grey_highlight"
         android:ems="10"
         android:hint="Enter Habit Name"
@@ -39,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_details_dialog_label_name" />
 
     <TextView
         android:id="@+id/textView4"
@@ -47,10 +45,8 @@
         android:layout_height="wrap_content"
         android:text="Edit Details"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/et_details_dialog_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_details_dialog_confirm"
@@ -82,5 +78,29 @@
         app:layout_constraintBottom_toBottomOf="@+id/btn_details_dialog_confirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_details_dialog_confirm" />
+
+    <TextView
+        android:id="@+id/tv_details_dialog_label_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="Name"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/et_details_dialog_name"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/tv_details_dialog_label_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:text="Description"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/et_details_dialog_desc"
+        app:layout_constraintTop_toBottomOf="@+id/et_details_dialog_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
