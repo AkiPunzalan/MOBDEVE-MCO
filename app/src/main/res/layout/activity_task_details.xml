@@ -24,7 +24,7 @@
         android:id="@+id/sw_details_label_notif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:checked="true"
         android:text="Notification "
         android:textColor="@color/white"
@@ -98,7 +98,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/sw_details_label_notif"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.30"
+        app:layout_constraintHorizontal_bias="0.20"
         app:layout_constraintStart_toEndOf="@+id/sw_details_label_notif"
         app:layout_constraintTop_toTopOf="@+id/sw_details_label_notif" />
 
@@ -112,5 +112,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/sw_details_label_notif"
         app:layout_constraintStart_toStartOf="@+id/sw_details_label_notif"
         app:layout_constraintTop_toTopOf="@+id/sw_details_label_notif" />
+
+    <Button
+        android:id="@+id/btn_details_edit_time"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:text="edit"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_details_notif"
+        app:layout_constraintStart_toEndOf="@+id/tv_details_notif"
+        app:layout_constraintTop_toTopOf="@+id/tv_details_notif" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

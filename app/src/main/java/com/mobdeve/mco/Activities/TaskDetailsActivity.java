@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -19,9 +21,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mobdeve.mco.AlarmHelper;
@@ -30,6 +34,11 @@ import com.mobdeve.mco.Fragments.*;
 import com.mobdeve.mco.Keys.DetailFields;
 import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
+import com.mobdeve.mco.Task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 public class TaskDetailsActivity extends AppCompatActivity {
 
@@ -39,14 +48,15 @@ public class TaskDetailsActivity extends AppCompatActivity {
     private ImageView ivCheck;
     private TextView tvName, tvDesc, tvDone, tvNotif, tvCheckin, tvEndDate;
     private EditText etEditName, etEditDesc;
-    private Button btnDelete, btnCancel, btnSave;
+    private Button btnDelete, btnCancel, btnSave, btnEditTime;
     private SwitchCompat swNotif;
 
     private FragmentContainerView frcDetails;
     private ActionBar toolbar;
 
     //object values
-    int id;
+    int id, hour, min;
+    int year, month, day;
     String type, name, desc, notif, color;
     Boolean done, notifOn;
 
@@ -57,8 +67,16 @@ public class TaskDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_details);
         ah = new AlarmHelper(this);
-
         getIntentValues();
+
+        //default values for time in edit dialog
+        LocalDateTime currentTime = Task.getNotif(db.getStringField(type, "next_notif", id));
+        year = currentTime.getYear();
+        month = currentTime.getMonthValue();
+        day = currentTime.getDayOfMonth();
+        hour = currentTime.getHour();
+        min = currentTime.getMinute();
+
         initComponents();
         displayFragment(type);
     }
@@ -103,31 +121,99 @@ public class TaskDetailsActivity extends AppCompatActivity {
         notifOn = i.getBooleanExtra(DetailFields.NOTIFON.name(), true);
     }
 
+    private void EditTime(){
+        Calendar today = Calendar.getInstance();
+        DatePickerDialog dpdialog = new DatePickerDialog(TaskDetailsActivity.this,
+            //event listener
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int inYear, int inMonth, int inDayOfMonth) {
+                    inMonth += 1;
+                    year = inYear;
+                    month = inMonth;
+                    day = inDayOfMonth;
+                    EditTimeDialog();
+                }
+            },
+            //default time on dialog open
+            year, month-1, day);
+
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(TaskDetailsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int inHourOfDay, int inMinute) {
+                hour = inHourOfDay;
+                min = inMinute;
+
+                if(type.equals(Types.Todo.name()) || type.equals(Types.Goal.name()))
+                    dpdialog.show(); //display date dialog after time dialog
+                else EditTimeDialog();
+            }
+        }, hour, min, false);
+        timePickerDialog.show();
+    }
+
+    private void EditTimeDialog(){
+        final Dialog editTimedialog = new Dialog(TaskDetailsActivity.this);
+
+        editTimedialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        editTimedialog.setCancelable(true);
+        editTimedialog.setContentView(R.layout.dialog_edittime);
+
+        //INIT DIALOG COMPONENTS
+        TextView tvTimeInput = editTimedialog.findViewById(R.id.tv_edittime_input);
+
+        if(type.equals(Types.Daily.name()))
+            tvTimeInput.setText(String.format("%02d:%02d:%02d", hour, min, 0));
+        else tvTimeInput.setText(String.format("%02d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, min, 0));
+
+        Button btnEditTimeConfirm = editTimedialog.findViewById(R.id.btn_edittime_confirm);
+        btnEditTimeConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String time = String.format("%02d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, min, 0);
+                String formatedtime;
+                LocalDateTime ldtTime = Task.getNotif(time);
+                db.updateTime(id, time, type);
+
+                //change time on views
+                if(type.equals(Types.Daily.name()))
+                    formatedtime = ldtTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+                else formatedtime = ldtTime.format(DateTimeFormatter.ofPattern("dd MMM, hh:mm a"));
+                tvNotif.setText(formatedtime);
+
+                //reschedule alarms TODO : add Daily
+                if(type.equals(Types.Todo.name())) {
+                    ah.cancelAllAlarms(type, id);
+                    ah.setAlarm(type, id);
+                }
+
+                editTimedialog.dismiss();
+            }
+        });
+
+        editTimedialog.show();
+    }
+
     private void initDialogComponents(Dialog d) {
         etEditName = d.findViewById(R.id.et_details_dialog_name);
         etEditDesc = d.findViewById(R.id.et_details_dialog_desc);
 
         btnDelete = d.findViewById(R.id.btn_details_dialog_delete);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.deleteOneRow(String.valueOf(id), type);
-                ah.cancelAllAlarms(type, id);
-                d.dismiss();
-                finish();
-            }
+        btnDelete.setOnClickListener(v -> {
+            db.deleteOneRow(String.valueOf(id), type);
+            ah.cancelAllAlarms(type, id);
+            d.dismiss();
+            finish();
         });
 
         btnCancel = d.findViewById(R.id.btn_details_dialog_cancel);
         btnCancel.setOnClickListener(v -> d.dismiss());
 
         btnSave = d.findViewById(R.id.btn_details_dialog_confirm);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UpdateTask();
-                d.dismiss();
-            }
+        btnSave.setOnClickListener(v -> {
+            UpdateTask();
+            d.dismiss();
         });
 
 
@@ -151,29 +237,28 @@ public class TaskDetailsActivity extends AppCompatActivity {
         tvCheckin = findViewById(R.id.tv_details_checkin);
 
         ivCheck = findViewById(R.id.iv_details_done);
-        ivCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                done = !done;
-                setDone(done, color);
-                db.updateStatus(id, done, type);
-            }
+        ivCheck.setOnClickListener(v -> {
+            done = !done;
+            setDone(done, color);
+            db.updateStatus(id, done, type);
         });
 
         swNotif = findViewById(R.id.sw_details_label_notif);
-        swNotif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifOn = !notifOn;
-                swNotif.setChecked(notifOn);
-                db.updateNotifOn(id, notifOn, type);
+        swNotif.setOnClickListener(v -> {
+            notifOn = !notifOn;
+            swNotif.setChecked(notifOn);
+            db.updateNotifOn(id, notifOn, type);
 
-                //LocalDateTime alarmTime = Task.getNotif(db.getTime(type, id));
+            //LocalDateTime alarmTime = Task.getNotif(db.getTime(type, id));
 
-                if(notifOn)
-                   ah.setAlarm(type, id);
-                else ah.cancelAllAlarms(type, id);
-            }
+            if(notifOn)
+               ah.setAlarm(type, id);
+            else ah.cancelAllAlarms(type, id);
+        });
+
+        btnEditTime = findViewById(R.id.btn_details_edit_time);
+        btnEditTime.setOnClickListener(v -> {
+            EditTime();
         });
 
         tvName.setText(name);
@@ -227,7 +312,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
         if(inDesc.equals(""))
             inDesc = desc;
 
-        db.updateNameAndDesc(id, inName, inDesc, type);
+        db.updateTask(id, inName, inDesc, type);
 
         tvName.setText(inName);
         setDesc(inDesc);

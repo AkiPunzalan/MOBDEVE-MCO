@@ -221,7 +221,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.update(table, cv, "_id=?", new String[]{String.valueOf(id)});
     }
 
-    public void updateNameAndDesc(int id, String name, String desc, String table){
+    public void updateTime(int id, String time, String table){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_NOTIF, time);
+
+        long result = db.update(table, cv, "_id=?", new String[]{String.valueOf(id)});
+    }
+
+    //updates task day, desc, time
+    public void updateTask(int id, String name, String desc, String table){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 

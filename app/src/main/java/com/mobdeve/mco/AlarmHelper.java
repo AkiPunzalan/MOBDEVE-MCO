@@ -95,7 +95,7 @@ public class AlarmHelper {
         for(int code: codes)
             cancelAlarm(code);
 
-        Toast.makeText(context, "Alarm Cancelled", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Alarm Cancelled", Toast.LENGTH_SHORT).show();
     }
 
     public void cancelAlarm(int reqCode){
