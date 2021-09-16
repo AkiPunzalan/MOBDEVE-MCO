@@ -102,4 +102,15 @@
         app:layout_constraintStart_toEndOf="@+id/sw_details_label_notif"
         app:layout_constraintTop_toTopOf="@+id/sw_details_label_notif" />
 
+    <TextView
+        android:id="@+id/tv_details_label_enddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Date :"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/sw_details_label_notif"
+        app:layout_constraintStart_toStartOf="@+id/sw_details_label_notif"
+        app:layout_constraintTop_toTopOf="@+id/sw_details_label_notif" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

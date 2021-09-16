@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobdeve.mco.AlarmHelper;
 import com.mobdeve.mco.DatabaseHelper;
 import com.mobdeve.mco.Fragments.*;
 import com.mobdeve.mco.Keys.DetailFields;
@@ -33,9 +34,10 @@ import com.mobdeve.mco.R;
 public class TaskDetailsActivity extends AppCompatActivity {
 
     private DatabaseHelper db = new DatabaseHelper(TaskDetailsActivity.this);
+    AlarmHelper ah;
 
     private ImageView ivCheck;
-    private TextView tvName, tvDesc, tvDone, tvNotif, tvCheckin;
+    private TextView tvName, tvDesc, tvDone, tvNotif, tvCheckin, tvEndDate;
     private EditText etEditName, etEditDesc;
     private Button btnDelete, btnCancel, btnSave;
     private SwitchCompat swNotif;
@@ -54,6 +56,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_details);
+        ah = new AlarmHelper(this);
 
         getIntentValues();
         initComponents();
@@ -143,10 +146,8 @@ public class TaskDetailsActivity extends AppCompatActivity {
         tvDesc = findViewById(R.id.tv_details_desc);
         tvDone = findViewById(R.id.tv_details_done);
         tvNotif = findViewById(R.id.tv_details_notif);
-
+        tvEndDate = findViewById(R.id.tv_details_label_enddate);
         tvCheckin = findViewById(R.id.tv_details_checkin);
-        if(type.equals(Types.Goal.name()))
-            tvCheckin.setVisibility(View.GONE);
 
         ivCheck = findViewById(R.id.iv_details_done);
         ivCheck.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +166,10 @@ public class TaskDetailsActivity extends AppCompatActivity {
                 notifOn = !notifOn;
                 swNotif.setChecked(notifOn);
                 db.updateNotifOn(id, notifOn, type);
+
+//                if(notifOn){
+//                    //ah.setAlarm(type, id);
+//                }else {}//ah.cancelAllAlarms(type, id);
             }
         });
 
@@ -173,13 +178,22 @@ public class TaskDetailsActivity extends AppCompatActivity {
         tvNotif.setText(notif);
         setDone(done, color);
         swNotif.setChecked(notifOn);
+
+        if(type.equals(Types.Goal.name())) {
+            tvCheckin.setVisibility(View.GONE);
+            swNotif.setVisibility(View.INVISIBLE);
+            swNotif.setEnabled(false);
+            tvEndDate.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setDesc(String desc){
         if(desc == null){
             tvDesc.setVisibility(View.GONE);
-        } else
+        } else {
             tvDesc.setText(desc);
+            tvDesc.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setDone(boolean done, String color){

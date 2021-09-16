@@ -37,6 +37,7 @@ import com.mobdeve.mco.Task;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
@@ -65,6 +66,7 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        ah = new AlarmHelper(this);
 
         initComponents();
         setDefaults();
@@ -219,24 +221,22 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
 
     private void addTask(DatabaseHelper db) {
         long resultId = -1;
+        LocalDateTime newNotif = null;
 
         //add To-do
         if(type.equals(Types.Todo.name())){
-            resultId = db.addTodo(new Task(name, desc, color, false, true,
-                    LocalDateTime.of(year, month, day, hour, min, 0)));
+            newNotif = LocalDateTime.of(year, month, day, hour, min, 0);
+            resultId = db.addTodo(new Task(name, desc, color, false, true, newNotif));
         }
         //add Daily
         else if(type.equals(Types.Daily.name())){
-            LocalDateTime today = LocalDateTime.now();
-            resultId = db.addDaily(new Task.Daily(name, desc, color, false, true,
-                    LocalDateTime.of(today.getYear(), 10, 13, hour, min, 0),
-                    daysOfWeek));
+            newNotif = LocalDate.now().atTime(hour, min);
+            resultId = db.addDaily(new Task.Daily(name, desc, color, false, true, newNotif, daysOfWeek));
         }
         //add Goal
         else if(type.equals(Types.Goal.name())){
-            resultId = db.addGoal(new Task.Goal(name, desc, color, false, true,
-                    LocalDateTime.of(year, month, day, hour, min, 0),
-                    0));
+            newNotif = LocalDateTime.of(year, month, day, hour, min, 0);
+            resultId = db.addGoal(new Task.Goal(name, desc, color, false, true, newNotif, 0));
         }
 
         Log.v("id_check", String.valueOf(resultId));
@@ -244,7 +244,7 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
         if(resultId == -1)
             Toast.makeText(this, "Add Task Failed", Toast.LENGTH_SHORT).show();
         else {
-            //schedule alarm
+            //ah.setAlarm(type, newNotif, (int) resultId, name);
             Toast.makeText(AddActivity.this, "Added Successfully", Toast.LENGTH_SHORT).show();
             finish();
         }
