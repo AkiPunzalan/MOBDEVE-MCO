@@ -4,9 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/edit_details"
-        android:icon="@drawable/pencil"
         android:orderInCategory="100"
-        android:title="Edit Details"
-        app:showAsAction="always"
-        android:iconTint="@color/grey_highlight" />
+        android:title="Edit"
+        app:showAsAction="always"/>
 </menu>

@@ -69,8 +69,9 @@ public class TaskDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        //BTN CLICK EVENT
         if (id == R.id.edit_details){
-            //BTN CLICK EVENT
+            //DIALOG SETUP
             final Dialog dialog = new Dialog(TaskDetailsActivity.this);
 
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -79,15 +80,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
 
             //INIT DIALOG COMPONENTS
             initDialogComponents(dialog);
-
-            Button btnConfirm = dialog.findViewById(R.id.btn_details_dialog_confirm);
-            btnConfirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
             dialog.show();
         }
         return super.onOptionsItemSelected(item);
@@ -120,18 +112,13 @@ public class TaskDetailsActivity extends AppCompatActivity {
         });
 
         btnCancel = d.findViewById(R.id.btn_details_dialog_cancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-            }
-        });
+        btnCancel.setOnClickListener(v -> d.dismiss());
 
         btnSave = d.findViewById(R.id.btn_details_dialog_confirm);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //UpdateTask();
+                UpdateTask();
                 d.dismiss();
             }
         });
@@ -194,27 +181,20 @@ public class TaskDetailsActivity extends AppCompatActivity {
     }
 
     private void UpdateTask(){
-        String newName, newDesc;
+        String inName = etEditName.getText().toString().trim();
+        String inDesc = etEditDesc.getText().toString().trim();
 
-        if(etEditName.getText().toString().trim().equals(""))
-            newName = name;
-        else newName = etEditName.getText().toString().trim();
+        //if empty use current object values
+        if(inName.equals(""))
+            inName = name;
 
-        if(etEditDesc.getText().toString().trim().equals(""))
-            newDesc = desc;
-        else newDesc = etEditDesc.getText().toString().trim();
+        if(inDesc.equals(""))
+            inDesc = desc;
 
-        switch (type){
-            case "Todo":
-                //db.updateOneTodo(); //TODO: Make separate update methods for status, notif, days edit name|desc|days
-                break;
+        db.updateNameAndDesc(id, inName, inDesc, type);
 
-            case "Daily":
-                break;
-
-            case "Goal":
-        }
-
+        tvName.setText(inName);
+        setDesc(inDesc);
     }
 
     private void displayFragment(String type){
