@@ -22,6 +22,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/grey"
         android:textSize="16sp"
+        android:maxLength="15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,6 +38,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/grey"
         android:textSize="16sp"
+        android:maxLength="30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
