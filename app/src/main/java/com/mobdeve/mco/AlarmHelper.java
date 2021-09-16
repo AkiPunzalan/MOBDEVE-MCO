@@ -1,19 +1,19 @@
 package com.mobdeve.mco;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.mobdeve.mco.Activities.TaskDetailsActivity;
 import com.mobdeve.mco.Keys.Types;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 
 
 public class AlarmHelper {
@@ -25,6 +25,7 @@ public class AlarmHelper {
 
     //object values
     private String name, desc, time;
+    private boolean[] days;
 
     public AlarmHelper(Context context){
         this.context = context;
@@ -40,7 +41,7 @@ public class AlarmHelper {
         if(type.equals(Types.Todo.name())){
             schedule(alarmCodes[0]);
         }else if(type.equals(Types.Daily.name())){
-
+            scheduleDaysOfWeek(alarmCodes);
         }
     }
 
@@ -48,6 +49,9 @@ public class AlarmHelper {
         name = db.getStringField(type, "name", id);
         desc = db.getStringField(type, "description", id);
         time = db.getStringField(type, "next_notif", id);
+
+        if(type.equals(Types.Daily.name()))
+            days = Task.Daily.getDays(db.getStringField(type, "selected_days", id));
     }
 
     private void schedule(int reqCode){
@@ -71,22 +75,45 @@ public class AlarmHelper {
         Toast.makeText(context, "Alarm Scheduled", Toast.LENGTH_SHORT).show();
     }
 
-    private void scheduleWeekly(int reqCode, int hour, int min, String name){
+    private void scheduleDaysOfWeek(int[] codes){
+        int hour = Task.getNotif(time).getHour();
+        int min = Task.getNotif(time).getMinute();
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime alarmTime = LocalDate.now().atTime(hour, min, 0);
+
+        //skip code of index 0 | i = int DayOfWeek
+        for(int i = 1; i < codes.length; i++){
+            if(days[i-1]){
+                //check if alarm is scheduled for today and created before scheduling time
+                if(now.getDayOfWeek().getValue() == i && now.isBefore(alarmTime)){
+                    //schedule weekly alarm as is, intended to notify within the day
+                    scheduleWeekly(codes[i], alarmTime);
+                } else {
+                    //otherwise schedule for the next instance of the day of the week
+                    LocalDateTime nextTime = alarmTime.with(TemporalAdjusters.next(DayOfWeek.of(i)));
+                    scheduleWeekly(codes[i], nextTime);
+                }
+            }
+        }
+        Toast.makeText(context, "Alarms Scheduled", Toast.LENGTH_SHORT).show();
+    }
+
+    private void scheduleWeekly(int reqCode, LocalDateTime alarmTime){
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        LocalDateTime time = LocalDate.now().atTime(hour,min);
-        long milis = time.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        long milis = alarmTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 
         Intent i = new Intent(context, AlarmReceiver.class);
         i.putExtra("notifId", reqCode);
         i.putExtra("TaskName", name);
+        if(!(desc == null))
+            i.putExtra("description", desc);
+        else i.putExtra("description", "");
 
         pendingIntent = PendingIntent.getBroadcast(context, reqCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        //TODO: interval milis change to weekly
-        alarmManager.setInexactRepeating(AlarmManager.RTC, milis, 2*60*1000, pendingIntent);
-
-        Toast.makeText(context, "Alarm Scheduled", Toast.LENGTH_SHORT).show();
+        alarmManager.setInexactRepeating(AlarmManager.RTC, milis, AlarmManager.INTERVAL_DAY * 7 , pendingIntent);
     }
 
     public void cancelAllAlarms(String type, int id){

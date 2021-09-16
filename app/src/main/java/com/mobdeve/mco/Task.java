@@ -114,7 +114,7 @@ public class Task {
             return days;
         }
 
-        public boolean[] getDays(String s){
+        public static boolean[] getDays(String s){
             boolean[] days = new boolean[7];
 
             for(int i=0; i<7; i++){

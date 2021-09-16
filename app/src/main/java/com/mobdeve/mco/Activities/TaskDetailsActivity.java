@@ -182,8 +182,8 @@ public class TaskDetailsActivity extends AppCompatActivity {
                 else formatedtime = ldtTime.format(DateTimeFormatter.ofPattern("dd MMM, hh:mm a"));
                 tvNotif.setText(formatedtime);
 
-                //reschedule alarms TODO : add Daily
-                if(type.equals(Types.Todo.name())) {
+                //reschedule alarms
+                if(type.equals(Types.Todo.name()) || type.equals(Types.Daily.name())) {
                     ah.cancelAllAlarms(type, id);
                     ah.setAlarm(type, id);
                 }
@@ -272,11 +272,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
             swNotif.setVisibility(View.INVISIBLE);
             swNotif.setEnabled(false);
             tvEndDate.setVisibility(View.VISIBLE);
-        }
-
-        //TODO: remove after daily notif has been implemented
-        if(type.equals(Types.Daily.name())){
-            swNotif.setEnabled(false);
         }
     }
 

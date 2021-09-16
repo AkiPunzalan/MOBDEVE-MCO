@@ -230,7 +230,7 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
         }
         //add Daily
         else if(type.equals(Types.Daily.name())){
-            newNotif = LocalDate.now().atTime(hour, min);
+            newNotif = LocalDate.now().atTime(hour, min, 0);
             resultId = db.addDaily(new Task.Daily(name, desc, color, false, true, newNotif, daysOfWeek));
         }
         //add Goal
@@ -244,8 +244,8 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
         if(resultId == -1)
             Toast.makeText(this, "Add Task Failed", Toast.LENGTH_SHORT).show();
         else {
-            Toast.makeText(AddActivity.this, "Task Added Successfully", Toast.LENGTH_SHORT).show();
-            if(type.equals(Types.Todo.name()))
+            Toast.makeText(this, "Task Added Successfully", Toast.LENGTH_SHORT).show();
+            if( type.equals(Types.Todo.name()) || type.equals(Types.Daily.name()) )
                 ah.setAlarm(type, (int) resultId);
             finish();
         }
