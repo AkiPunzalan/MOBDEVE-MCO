@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.mobdeve.mco.AlarmHelper;
 import com.mobdeve.mco.DatabaseHelper;
 import com.mobdeve.mco.Fragments.*;
 import com.mobdeve.mco.Fragments.GoalAddFragment;
@@ -45,6 +46,8 @@ import eltos.simpledialogfragment.color.SimpleColorDialog;
 
 public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDialogResultListener{
 
+    AlarmHelper ah;
+
     FragmentContainerView frcAdd;
     Button btnConfirm;
     ImageButton btnColor;
@@ -56,7 +59,7 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
     //object values
     private String name, desc, type, color;
     private int year, month, day, hour, min;
-    private boolean[] daysOfWeek;
+    private boolean[] daysOfWeek = new boolean[7];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,7 +203,7 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
         transaction.commit();
     }
 
-    @Override
+    @Override //gets Color Picker Dialog result
     public boolean onResult(@NonNull @NotNull String dialogTag, int which, @NonNull @NotNull Bundle extras) {
 
         if (dialogTag.equals("ColorPicker")){
@@ -212,6 +215,39 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
             return true;
         }
         return false;
+    }
+
+    private void addTask(DatabaseHelper db) {
+        long resultId = -1;
+
+        //add To-do
+        if(type.equals(Types.Todo.name())){
+            resultId = db.addTodo(new Task(name, desc, color, false,
+                    LocalDateTime.of(year, month, day, hour, min, 0)));
+        }
+        //add Daily
+        else if(type.equals(Types.Daily.name())){
+            LocalDateTime today = LocalDateTime.now();
+            resultId = db.addDaily(new Task.Daily(name, desc, color, false,
+                    LocalDateTime.of(today.getYear(), 10, 13, hour, min, 0),
+                    daysOfWeek));
+        }
+        //add Goal
+        else if(type.equals(Types.Goal.name())){
+            resultId = db.addGoal(new Task.Goal(name, desc, color, false,
+                    LocalDateTime.of(year, month, day, hour, min, 0),
+                    0));
+        }
+
+        Log.v("id_check", String.valueOf(resultId));
+
+        if(resultId == -1)
+            Toast.makeText(this, "Add Task Failed", Toast.LENGTH_SHORT).show();
+        else {
+            //schedule alarm
+            Toast.makeText(AddActivity.this, "Added Successfully", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     //Default values of form
@@ -237,44 +273,29 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
             return false;
         }
         else if(etDate.getText().toString().equals("") &&
-                (type.equals(Types.Todo.name()) || type.equals(Types.Goal.name()) )){
+                (type.equals(Types.Todo.name()) || type.equals(Types.Goal.name()) )) {
             Toast.makeText(this, "Please add task date", Toast.LENGTH_SHORT).show();
             return false;
-        }else{
+        }
+        else if( !validDays() && (type.equals(Types.Daily.name())) ){
+            Toast.makeText(this, "Select at least one day for tracking", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else{
             return true;
         }
     }
+    
+    //check for at least one true
+    private boolean validDays(){
+        for (boolean i : this.daysOfWeek)
+            if(i) return true;
 
-    private void addTask(DatabaseHelper db) {
-        long resultId = -1;
+        return false;
+    }
 
-        //add To-do
-        if(type.equals(Types.Todo.name())){
-            resultId = db.addTodo(new Task(name, desc, color, false,
-                            LocalDateTime.of(year, month, day, hour, min, 0)));
-        }
-        //add Daily
-        else if(type.equals(Types.Daily.name())){
-            LocalDateTime today = LocalDateTime.now();
-            resultId = db.addDaily(new Task.Daily(name, desc, color, false,
-                            LocalDateTime.of(2021, 10, 13, hour, min, 0),
-                            new boolean[]{false, true, false, true, true, true, true}));
-        }
-        //add Goal
-        else if(type.equals(Types.Goal.name())){
-            resultId = db.addGoal(new Task.Goal(name, desc, color, false,
-                            LocalDateTime.of(year, month, day, hour, min, 0),
-                            48));
-        }
-
-        Log.v("id_check", String.valueOf(resultId));
-
-        if(resultId == -1)
-            Toast.makeText(this, "Add Task Failed", Toast.LENGTH_SHORT).show();
-        else {
-            //schedule alarm
-            Toast.makeText(AddActivity.this, "Added Successfully", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+    //retrieve from DailyAddFragment
+    public void retrieveDays(boolean[] daysOfWeek){
+        this.daysOfWeek = daysOfWeek;
     }
 }
