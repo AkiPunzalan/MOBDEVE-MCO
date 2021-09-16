@@ -56,8 +56,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
         getIntentValues();
         initComponents();
         displayFragment(type);
-
-        Toast.makeText(this, String.valueOf(id) + " " + type, Toast.LENGTH_SHORT).show();
     }
 
     @Override
