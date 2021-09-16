@@ -53,6 +53,8 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalViewHolder> {
                 i.putExtra(DetailFields.COLOR.name(), selectedTask.getColor());
                 i.putExtra(DetailFields.TYPE.name(), Types.Goal.name());
                 i.putExtra(DetailFields.PROGRESS.name(), selectedTask.getProgress());
+                i.putExtra(DetailFields.PROGCOUNT.name(), selectedTask.getCurrentProg());
+                i.putExtra(DetailFields.MAXREQ.name(), selectedTask.getMaxreq());
 
                 v.getContext().startActivity(i);
             }

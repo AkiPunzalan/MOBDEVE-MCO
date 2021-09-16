@@ -34,6 +34,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String COLUMN_DAYS = "selected_days";
     private static final String COLUMN_PROGRESS = "progress";
+    private static final String COLUMN_CURRENTPROG = "current_progress";
+    private static final String COLUMN_MAXREQ = "max_req";
 
     private static final String CREATE_TABLE_DAILY = "CREATE TABLE " + TABLE_DAILY +
             " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -62,7 +64,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_STATUS + " INTEGER, " +
             COLUMN_NOTIFON + " INTEGER, " +
             COLUMN_NOTIF + " TEXT, " +
-            COLUMN_PROGRESS + " INTEGER);";
+            COLUMN_PROGRESS + " INTEGER, " +
+            COLUMN_CURRENTPROG + " INTEGER, " +
+            COLUMN_MAXREQ + " INTEGER);";
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -169,6 +173,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_PROGRESS, task.getProgress());
 
+        cv.put(COLUMN_CURRENTPROG, task.getCurrentProg());
+        cv.put(COLUMN_MAXREQ, task.getMaxreq());
+
         long result = db.insert(TABLE_GOAL, null, cv);
 
         if(result == -1){
@@ -243,13 +250,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.update(table, cv, "_id=?", new String[]{String.valueOf(id)});
     }
 
+    public void updateProgress(int id, int currentprog, int progpercent){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CURRENTPROG, currentprog);
+        cv.put(COLUMN_PROGRESS, progpercent);
+
+        long result = db.update("Goal", cv, "_id=?", new String[]{String.valueOf(id)});
+    }
+
     public void resetStatus(){
         Log.v("reset_check", "check");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_STATUS, 0);
-        //String query = "UPDATE Daily SET status = 0";
         long result = db.update(Types.Daily.name(), cv, null, null);
         db.close();
     }

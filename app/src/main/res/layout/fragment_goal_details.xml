@@ -74,40 +74,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_black"
-            android:text="10"
+            android:text="7"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
-        <TextView
-            android:id="@+id/tv_details_goal_plus"
-            android:layout_width="20dp"
+        <ImageView
+            android:id="@+id/iv_details_goal_plus"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto_black"
-            android:text="+"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="24sp"
+            app:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/tv_details_goal_currentprog"
             app:layout_constraintStart_toEndOf="@+id/tv_details_goal_currentprog"
-            app:layout_constraintTop_toTopOf="@+id/tv_details_goal_currentprog" />
+            app:layout_constraintTop_toTopOf="@+id/tv_details_goal_currentprog"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
-        <TextView
-            android:id="@+id/tv_details_goal_minus"
-            android:layout_width="20dp"
+        <ImageView
+            android:id="@+id/iv_details_goal_minus"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
-            android:fontFamily="@font/roboto_black"
-            android:text="-"
+            app:tint="@color/white"
+            android:rotation="180"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_details_goal_currentprog"
             app:layout_constraintEnd_toStartOf="@+id/tv_details_goal_currentprog"
-            app:layout_constraintTop_toTopOf="@+id/tv_details_goal_currentprog" />
+            app:layout_constraintTop_toTopOf="@+id/tv_details_goal_currentprog"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"

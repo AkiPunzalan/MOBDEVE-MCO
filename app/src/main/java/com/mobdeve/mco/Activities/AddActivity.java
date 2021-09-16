@@ -61,6 +61,7 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
     private String name, desc, type, color;
     private int year, month, day, hour, min;
     private boolean[] daysOfWeek = new boolean[7];
+    private int maxReq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,7 +237,7 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
         //add Goal
         else if(type.equals(Types.Goal.name())){
             newNotif = LocalDateTime.of(year, month, day, hour, min, 0);
-            resultId = db.addGoal(new Task.Goal(name, desc, color, false, true, newNotif, 0));
+            resultId = db.addGoal(new Task.Goal(name, desc, color, false, true, newNotif, 0, 0, maxReq));
         }
 
         Log.v("id_check", String.valueOf(resultId));
@@ -255,6 +256,7 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
     private void setDefaults() {
         color = String.format("#%06x", ContextCompat.getColor(this, R.color.task_red) & 0xffffff);
         type = Types.Todo.name();
+        maxReq = 1;
     }
 
     //takes values from views and checks for empty fields
@@ -298,5 +300,10 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
     //retrieve from DailyAddFragment
     public void retrieveDays(boolean[] daysOfWeek){
         this.daysOfWeek = daysOfWeek;
+    }
+
+    //retrieve from GoalAddFragment
+    public void retrieveMaxreq(int maxReq){
+        this.maxReq = maxReq;
     }
 }

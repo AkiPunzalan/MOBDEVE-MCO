@@ -11,5 +11,8 @@ public enum DetailFields {
     COLOR,
 
     DAYS,
-    PROGRESS
+
+    PROGRESS,
+    PROGCOUNT,
+    MAXREQ
 }

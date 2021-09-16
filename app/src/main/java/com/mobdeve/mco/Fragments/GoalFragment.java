@@ -81,7 +81,9 @@ public class GoalFragment extends Fragment {
                     cursor.getInt(4),
                     cursor.getInt(5),
                     cursor.getString(6),
-                    cursor.getInt(7))
+                    cursor.getInt(7),
+                    cursor.getInt(8),
+                    cursor.getInt(9))
                 );
             }
         }

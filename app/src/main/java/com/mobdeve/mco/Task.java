@@ -128,17 +128,16 @@ public class Task {
     }
 
     public static class Goal extends Task{
-        int currentprogress, maxreq;
-        LocalDateTime enddate;
+        int progpercent, currentprog, maxreq;
 
-        public Goal(String name, String desc, String color, boolean status, boolean notifOn, LocalDateTime notif, int currentprogress) {
+        public Goal(String name, String desc, String color, boolean status, boolean notifOn, LocalDateTime notif, int progpercent, int currentprog, int maxreq) {
             super(name, desc, color, status, notifOn, notif);
-            this.currentprogress = currentprogress;
-//            this.maxreq = maxreq;
-//            this.enddate = enddate;
+            this.progpercent = progpercent;
+            this.currentprog = currentprog;
+            this.maxreq = maxreq;
         }
 
-        public Goal(int _id, String name, String desc, String color, int status, int notifOn, String notif, int currentprogress) {
+        public Goal(int _id, String name, String desc, String color, int status, int notifOn, String notif, int progpercent, int currentprog, int maxreq) {
             super();
             this._id = _id;
             this.name = name;
@@ -151,11 +150,21 @@ public class Task {
             this.color = color;
             this.status = intToBoolean(status);
             this.notifOn = intToBoolean(notifOn);
-            this.currentprogress = currentprogress;
+            this.progpercent = progpercent;
+            this.currentprog = currentprog;
+            this.maxreq = maxreq;
         }
 
         public int getProgress(){
-            return currentprogress;
+            return progpercent;
+        }
+
+        public int getCurrentProg(){
+            return currentprog;
+        }
+
+        public int getMaxreq(){
+            return maxreq;
         }
     }
 

@@ -55,8 +55,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
     private ActionBar toolbar;
 
     //object values
-    int id, hour, min;
-    int year, month, day;
+    int id, hour, min, year, month, day;
     String type, name, desc, notif, color;
     Boolean done, notifOn;
 
@@ -164,8 +163,8 @@ public class TaskDetailsActivity extends AppCompatActivity {
         TextView tvTimeInput = editTimedialog.findViewById(R.id.tv_edittime_input);
 
         if(type.equals(Types.Daily.name()))
-            tvTimeInput.setText(String.format("%02d:%02d:%02d", hour, min, 0));
-        else tvTimeInput.setText(String.format("%02d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, min, 0));
+            tvTimeInput.setText(String.format("Time is %02d:%02d:%02d", hour, min, 0));
+        else tvTimeInput.setText(String.format("Time is %02d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, min, 0));
 
         Button btnEditTimeConfirm = editTimedialog.findViewById(R.id.btn_edittime_confirm);
         btnEditTimeConfirm.setOnClickListener(new View.OnClickListener() {
@@ -268,6 +267,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
         swNotif.setChecked(notifOn);
 
         if(type.equals(Types.Goal.name())) {
+            ivCheck.setEnabled(false);
             tvCheckin.setVisibility(View.GONE);
             swNotif.setVisibility(View.INVISIBLE);
             swNotif.setEnabled(false);
@@ -333,8 +333,21 @@ public class TaskDetailsActivity extends AppCompatActivity {
         args.putBooleanArray(DetailFields.DAYS.name(), i.getBooleanArrayExtra(DetailFields.DAYS.name()));
         args.putString(DetailFields.COLOR.name(), color);
         args.putInt(DetailFields.PROGRESS.name(), i.getIntExtra(DetailFields.PROGRESS.name(), 0));
+        args.putInt(DetailFields.PROGCOUNT.name(), i.getIntExtra(DetailFields.PROGCOUNT.name(), 0));
+        args.putInt(DetailFields.MAXREQ.name(), i.getIntExtra(DetailFields.MAXREQ.name(), 10));
 
         fragment.setArguments(args);
         transaction.replace(R.id.frc_details, fragment).commit();
+    }
+
+    public void retrieveProgress(int currentprog, int progpercent){
+        if(progpercent == 100){
+            db.updateStatus(id, true, "Goal");
+            setDone(true, color);
+        } else {
+            db.updateStatus(id, false, "Goal");
+            setDone(false, color);
+        }
+        db.updateProgress(id, currentprog, progpercent);
     }
 }
