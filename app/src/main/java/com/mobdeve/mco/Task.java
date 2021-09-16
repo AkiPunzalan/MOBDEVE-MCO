@@ -49,7 +49,7 @@ public class Task {
         return nextnotif;
     }
 
-    public LocalDateTime getNotif(String notif){
+    public static LocalDateTime getNotif(String notif){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(notif, format);
     }

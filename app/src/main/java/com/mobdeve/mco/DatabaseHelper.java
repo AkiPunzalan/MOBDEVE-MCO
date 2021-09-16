@@ -188,6 +188,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public String getStringField(String table, String field, int id){
+        String query = "SELECT " + field + " FROM " + table + " WHERE _id = " + id;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String s;
+
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            s = cursor.getString(0);
+        } else s = null;
+
+        cursor.close();
+        db.close();
+        return s;
+    }
+
     public void updateStatus(int id, boolean status, String table){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

@@ -112,6 +112,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 db.deleteOneRow(String.valueOf(id), type);
+                ah.cancelAllAlarms(type, id);
                 d.dismiss();
                 finish();
             }
@@ -167,9 +168,11 @@ public class TaskDetailsActivity extends AppCompatActivity {
                 swNotif.setChecked(notifOn);
                 db.updateNotifOn(id, notifOn, type);
 
-//                if(notifOn){
-//                    //ah.setAlarm(type, id);
-//                }else {}//ah.cancelAllAlarms(type, id);
+                //LocalDateTime alarmTime = Task.getNotif(db.getTime(type, id));
+
+                if(notifOn)
+                   ah.setAlarm(type, id);
+                else ah.cancelAllAlarms(type, id);
             }
         });
 
@@ -184,6 +187,11 @@ public class TaskDetailsActivity extends AppCompatActivity {
             swNotif.setVisibility(View.INVISIBLE);
             swNotif.setEnabled(false);
             tvEndDate.setVisibility(View.VISIBLE);
+        }
+
+        //TODO: remove after daily notif has been implemented
+        if(type.equals(Types.Daily.name())){
+            swNotif.setEnabled(false);
         }
     }
 

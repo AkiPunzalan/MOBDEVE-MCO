@@ -28,7 +28,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "DoWhile")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle(intent.getStringExtra("TaskName"))
-                .setContentText("filler text...")
+                .setContentText(intent.getStringExtra("description"))
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

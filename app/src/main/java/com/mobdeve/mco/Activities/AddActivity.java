@@ -244,8 +244,9 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
         if(resultId == -1)
             Toast.makeText(this, "Add Task Failed", Toast.LENGTH_SHORT).show();
         else {
-            //ah.setAlarm(type, newNotif, (int) resultId, name);
-            Toast.makeText(AddActivity.this, "Added Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddActivity.this, "Task Added Successfully", Toast.LENGTH_SHORT).show();
+            if(type.equals(Types.Todo.name()))
+                ah.setAlarm(type, (int) resultId);
             finish();
         }
     }
