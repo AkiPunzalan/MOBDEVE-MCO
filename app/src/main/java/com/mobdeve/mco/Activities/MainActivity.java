@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DatabaseHelper(this);
+        resetStatus();
         createNotifChannel();
 
         toolbar = getSupportActionBar();
@@ -54,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
         initComponents();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void resetStatus(){
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Reset Daily Statuses on the next day
@@ -64,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         int today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 
         if (today != lastStartupTime) {
+            Toast.makeText(this, "New Day!", Toast.LENGTH_SHORT).show();
             db.resetStatus();
 
             SharedPreferences.Editor editor = sp.edit();
