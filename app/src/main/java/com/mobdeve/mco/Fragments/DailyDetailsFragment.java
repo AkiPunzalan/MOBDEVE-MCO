@@ -13,11 +13,7 @@ import android.widget.TextView;
 import com.mobdeve.mco.Keys.DetailFields;
 import com.mobdeve.mco.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DailyDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class DailyDetailsFragment extends Fragment {
 
     TextView tvMon, tvTue, tvWed, tvThu, tvFri, tvSat, tvSun;
