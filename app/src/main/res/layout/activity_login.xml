@@ -7,17 +7,14 @@
     android:background="@color/black_primary"
     tools:context=".Activities.LoginActivity">
 
-    <Button
-        android:id="@+id/btn_signin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+    <ImageView
+        android:id="@+id/google_symbol"
+        android:layout_width="51dp"
+        android:layout_height="42dp"
         android:layout_marginEnd="16dp"
-        android:text="sign in with google"
+        app:layout_constraintBottom_toTopOf="@+id/btn_signin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/google_logo" />
 
     <TextView
         android:id="@+id/tv_login_email"
@@ -29,4 +26,20 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_signin"
         app:layout_constraintStart_toStartOf="@+id/btn_signin"
         app:layout_constraintTop_toBottomOf="@+id/btn_signin" />
+
+    <Button
+        android:id="@+id/btn_signin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="16dp"
+        android:text="sign in with google"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
