@@ -184,7 +184,9 @@ public class TaskDetailsActivity extends AppCompatActivity {
                 //reschedule alarms
                 if(type.equals(Types.Todo.name()) || type.equals(Types.Daily.name())) {
                     ah.cancelAllAlarms(type, id);
-                    ah.setAlarm(type, id);
+
+                    if(notifOn)
+                        ah.setAlarm(type, id);
                 }
 
                 editTimedialog.dismiss();

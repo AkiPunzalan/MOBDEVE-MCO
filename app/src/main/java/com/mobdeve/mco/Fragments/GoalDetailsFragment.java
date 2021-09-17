@@ -113,7 +113,7 @@ public class GoalDetailsFragment extends Fragment {
         progpercent = (int) (x*100);
 
         tvCurrentProg.setText(String.valueOf(progcount));
-        tvProgressPercent.setText(progpercent+"%");
+        tvProgressPercent.setText(progpercent+"% complete");
         pbProgress.setProgress(progpercent);
 
         TaskDetailsActivity tda = (TaskDetailsActivity) getActivity();
