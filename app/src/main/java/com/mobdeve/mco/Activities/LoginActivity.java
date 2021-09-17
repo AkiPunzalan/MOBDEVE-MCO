@@ -22,7 +22,6 @@ import com.mobdeve.mco.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btnSignin;
     TextView tvEmail;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 100;
@@ -32,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btnSignin = findViewById(R.id.btn_signin);
+        SignInButton signInButton = findViewById(R.id.btn_signin);
 
         //SET VISIBLE WHEN LOGED IN AND SET TEXT TO USER EMAIL
         tvEmail = findViewById(R.id.tv_login_email);
@@ -52,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
         // Set the dimensions of the sign-in button.
-        SignInButton signInButton = findViewById(R.id.btn_signin);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
