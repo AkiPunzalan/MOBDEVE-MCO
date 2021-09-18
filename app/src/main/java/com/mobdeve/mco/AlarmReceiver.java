@@ -26,7 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         //Channel ID same as ID in CreateNotifChannel
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "DoWhile")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.dowhile_foreground)
                 .setContentTitle(intent.getStringExtra("TaskName"))
                 .setContentText(intent.getStringExtra("description"))
                 .setAutoCancel(true)
