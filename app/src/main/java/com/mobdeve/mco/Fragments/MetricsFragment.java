@@ -8,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mikephil.charting.charts.*;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
+//import com.github.mikephil.charting.charts.*;
+//import com.github.mikephil.charting.components.XAxis;
+//import com.github.mikephil.charting.data.BarData;
+//import com.github.mikephil.charting.data.BarDataSet;
+//import com.github.mikephil.charting.data.BarEntry;
+//import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.mobdeve.mco.R;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 //cut feature, currently not in use
 public class MetricsFragment extends Fragment {
 
-    BarChart weekChart;
+    //BarChart weekChart;
 
     public MetricsFragment() {
         // Required empty public constructor
