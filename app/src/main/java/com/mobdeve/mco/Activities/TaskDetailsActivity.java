@@ -342,6 +342,15 @@ public class TaskDetailsActivity extends AppCompatActivity {
         transaction.replace(R.id.frc_details, fragment).commit();
     }
 
+    public void retrieveDays(boolean[] days){
+        db.updateDays(id, days);
+
+        //reschedule alarms
+        ah.cancelAllAlarms(type, id);
+        if(notifOn)
+            ah.setAlarm(type, id);
+    }
+
     public void retrieveProgress(int currentprog, int progpercent){
         if(progpercent == 100){
             db.updateStatus(id, true, "Goal");

@@ -239,7 +239,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.update(table, cv, "_id=?", new String[]{String.valueOf(id)});
     }
 
-    //updates task day, desc, time
+    //updates task day & desc
     public void updateTask(int id, String name, String desc, String table){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -248,6 +248,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DESC, desc);
 
         long result = db.update(table, cv, "_id=?", new String[]{String.valueOf(id)});
+    }
+
+    public void updateDays(int id, boolean[] days){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        String s = daysToString(days);
+        cv.put(COLUMN_DAYS, s);
+
+        long result = db.update("Daily", cv, "_id=?", new String[]{String.valueOf(id)});
     }
 
     public void updateProgress(int id, int currentprog, int progpercent){
