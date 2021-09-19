@@ -83,6 +83,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Called whenever this activity is pushed to the foreground, such as after
+     * a call to onCreate().
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isGooglePlayServicesAvailable()) {
+            try { refresh(); } catch (IOException ignored) {}
+        } else {
+            Toast.makeText(this, "Google Play Services required: " + "after installing, close and relaunch this app.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
      * Called when an activity launched here (specifically, AccountPicker
      * and authorization) exits, giving you the requestCode you started it with,
      * the resultCode it returned, and any additional data from it.
