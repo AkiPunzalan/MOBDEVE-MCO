@@ -28,11 +28,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mobdeve.mco.AlarmHelper;
+import com.mobdeve.mco.Calendar.CreateEventTask;
 import com.mobdeve.mco.DatabaseHelper;
 import com.mobdeve.mco.Fragments.*;
 import com.mobdeve.mco.Fragments.GoalAddFragment;
 import com.mobdeve.mco.Keys.Types;
 import com.mobdeve.mco.R;
+import com.mobdeve.mco.ServiceHolder;
 import com.mobdeve.mco.Task;
 
 import org.jetbrains.annotations.NotNull;
@@ -246,6 +248,12 @@ public class AddActivity extends AppCompatActivity implements SimpleDialog.OnDia
             Toast.makeText(this, "Add Task Failed", Toast.LENGTH_SHORT).show();
         else {
             Toast.makeText(this, "Task Added Successfully", Toast.LENGTH_SHORT).show();
+
+            //add to Calendar
+            if(type.equals(Types.Todo.name()))
+                new CreateEventTask(AddActivity.this, ServiceHolder.mService, name, desc, newNotif).execute();
+
+            //schedule alarm
             if( type.equals(Types.Todo.name()) || type.equals(Types.Daily.name()) )
                 ah.setAlarm(type, (int) resultId);
             finish();
